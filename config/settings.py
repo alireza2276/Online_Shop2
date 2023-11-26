@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'pages',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -134,3 +135,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+
+#crispy_forms_settings
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
