@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'crispy_forms',
+    'crispy_bootstrap5',
     'accounts',
     'pages',
-    'crispy_forms',
+    
 ]
 
 MIDDLEWARE = [
@@ -138,5 +140,5 @@ LOGOUT_REDIRECT_URL = 'home'
 
 
 #crispy_forms_settings
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
