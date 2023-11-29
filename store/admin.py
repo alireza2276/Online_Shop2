@@ -25,5 +25,7 @@ class CustomerAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['product', 'author', 'status', 'datetime_created']
+    list_editable = ['status']
+    list_per_page = 10
 
     
