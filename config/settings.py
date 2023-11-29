@@ -47,10 +47,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
 
-
+    # app_local
     'accounts',
-    'pages',
-    'products',
+    'store',
     
 ]
 
