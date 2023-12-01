@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.shortcuts import reverse
 
 
 class Category(models.Model):
@@ -29,6 +30,10 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse('products_detail', args=[self.pk])
+    
     
 
 class Customer(models.Model):
