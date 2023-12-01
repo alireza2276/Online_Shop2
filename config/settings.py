@@ -58,7 +58,6 @@ SITE_ID = 1
 
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,7 +66,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
@@ -180,3 +182,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 #allauth_config
 
 ACCOUNT_SESSION_REMEMBER = True
+
+
+{
+    "debug_toolbar.panels.profiling.ProfilingPanel",
+    "debug_toolbar.panels.redirects.RedirectsPanel",
+}

@@ -15,6 +15,15 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+
+    COLOR_CHOICES = [
+        ('BLACK', 'black'),
+        ('BLUE', 'blue'),
+        ('WHITE', 'white'),
+        ('RED', 'red'),
+        ('PINK', 'pink'),
+    ]
+
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -22,6 +31,9 @@ class Product(models.Model):
     discount = models.PositiveIntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='static/product_cover', blank=True)
     status = models.BooleanField(default=True)
+    weight = models.IntegerField()
+    color = models.CharField(max_length=255, choices=COLOR_CHOICES, default='black')
+
 
 
     datetime_created = models.DateTimeField(auto_now_add=True)
@@ -56,5 +68,9 @@ class Comment(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_comments')
     body = models.TextField()
+    image = models.ImageField(upload_to='static/user_image', blank=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=255, choices=COMMENT_STATUS, default=COMMENT_STATUS_WAITING)
+
+    def get_absolute_url(self):
+        return reverse('products_detail', args=[self.product.id])
