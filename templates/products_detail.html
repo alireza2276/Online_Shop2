@@ -37,7 +37,7 @@
                   <p>
                     f
                     <span class="m-0">دسته بندی ها:</span>
-                    <a href="shop.html">{{ product.category }}</a>
+                    <a href="shop.html">{{ product.category.title }}</a>
                   </p>
                 </div>
               </div>
@@ -91,7 +91,7 @@
                                       <div class="review__meta" dir="ltr">
                                         <span class="review__published-date">{{ comment.datetime_created }}</span>
                                         <span class="review__dash">-</span>
-                                        <strong class="review__author px-4">{{ comment.author.username }}</strong>
+                                        <strong class="review__author px-4">{{ comment.author.username}}</strong>
                                       </div>
                                       <div class="product-rating">
                                         <div class="m-0 star-rating star-five">

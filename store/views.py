@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Product, Comment
 from .forms import CommentForm
 
@@ -21,7 +22,7 @@ class ProductListView(ListView):
 
 
 class ProductDetailView(DetailView):
-    model = Product
+    queryset = Product.objects.prefetch_related('comments__author')
     template_name = 'products_detail.html'
     context_object_name = 'product'
 
@@ -31,20 +32,22 @@ class ProductDetailView(DetailView):
         return context
 
 
-class CommentCreateView(CreateView):
+class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
 
     def form_valid(self, form):
+        
         obj = form.save(commit=False)
+       
         obj.author = self.request.user
-
         product_id = int(self.kwargs['product_id'])
         product = get_object_or_404(Product, id=product_id)
         obj.product = product
         messages.success(self.request, 'Your comment successfully added')
 
         return super().form_valid(form)
+        
 
 
 
