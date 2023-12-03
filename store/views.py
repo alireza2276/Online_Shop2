@@ -1,13 +1,13 @@
 from typing import Any
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Product, Comment
-from .forms import CommentForm
+from .forms import CommentForm, AddToCartProductForm
 
 
 class HomeView(TemplateView):
@@ -29,6 +29,7 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['comment_form'] = CommentForm()
+        context['add_to_cart_form'] = AddToCartProductForm()
         return context
 
 
@@ -63,9 +64,9 @@ class Cart:
         product_id = str(product.id)
 
         if product_id not in self.cart:
-            self.cart['product_id'] = {'quantity': quantity}
+            self.cart[product_id] = {'quantity': quantity}
         else:
-            self.cart[product_id]['quantiy'] += quantity
+            self.cart[product_id]['quantity'] += quantity
 
         self.save()
 
@@ -90,7 +91,7 @@ class Cart:
         for product in products:
             cart[str(product.id)]['product_obj'] = product
 
-        for item in self.values():
+        for item in cart.values():
             yield item
 
     def __len__(self):
@@ -104,7 +105,25 @@ class Cart:
         product_ids = self.cart.keys()
 
         products = Product.objects.filter(id__in=product_ids)
-        return sum(Product.price for product in products)
+        return sum(product.price for product in products)
+    
+
+def cart_detail_view(request):
+    cart = Cart(request)
+    return render(request, 'cart_details.html', {'cart': cart})
+
+def add_to_cart_ciew(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id)
+    form = AddToCartProductForm(request.POST)
+
+    if form.is_valid():
+        cleaned_data = form.cleaned_data
+        quantity = cleaned_data['quantity']
+        cart.add(product, quantity)
+
+    return redirect('cart_details')
+
 
 
     

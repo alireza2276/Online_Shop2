@@ -26,12 +26,18 @@
                   <span class="money old-price text-danger">{{ product.price }} تومان</span>
                 </div>
                 <div class="product-action d-flex align-items-sm-center align-content-center mb--30">
-                  <div class="quantity-wrapper d-flex justify-content-start">
+                  <form action="{% url 'cart_add' product.id %}" method="POST">
+                    {% csrf_token %}
+                    {{ add_to_cart_form|crispy }}
+
+                    <button class="btn" type="submit">Add To Cart</button>
+                  </form>
+                  {% comment %} <div class="quantity-wrapper d-flex justify-content-start">
                     <div class="quantity">
                       <input type="number" class="quantity-input" name="qty" id="qty" value="1" min="1" />
                     </div>
                   </div>
-                  <button type="button" class="btn btn-small btn-bg-red btn-color-white btn-hover-2" onclick="window.location.href='cart.html'">اضافه به سبد خرید</button>
+                  <button type="button" class="btn btn-small btn-bg-red btn-color-white btn-hover-2" onclick="window.location.href='cart.html'">اضافه به سبد خرید</button> {% endcomment %}
                 </div>
                 <div class="product-footer-meta mt-5 pt-5">
                   <p>
@@ -91,7 +97,7 @@
                                       <div class="review__meta" dir="ltr">
                                         <span class="review__published-date">{{ comment.datetime_created }}</span>
                                         <span class="review__dash">-</span>
-                                        <strong class="review__author px-4">{{ comment.author.username}}</strong>
+                                        <strong class="review__author px-4">{{ comment.author.username }}</strong>
                                       </div>
                                       <div class="product-rating">
                                         <div class="m-0 star-rating star-five">
