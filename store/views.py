@@ -60,11 +60,13 @@ class Cart:
         self.cart = cart
 
     
-    def add(self, product, quantity=1):
+    def add(self, product, quantity=1, replace_current_quantity=False):
         product_id = str(product.id)
 
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': quantity}
+            self.cart[product_id] = {'quantity': 0}
+        if replace_current_quantity:
+            self.cart[product_id]['quantity'] = quantity
         else:
             self.cart[product_id]['quantity'] += quantity
 
@@ -110,6 +112,13 @@ class Cart:
 
 def cart_detail_view(request):
     cart = Cart(request)
+
+    for item in cart:
+        item['product_update_quantity_form'] = AddToCartProductForm(initial={
+            'quantity': item['quantity'],
+            'inplace': True,
+        })
+        
     return render(request, 'cart_details.html', {'cart': cart})
 
 def add_to_cart_ciew(request, product_id):
@@ -120,7 +129,7 @@ def add_to_cart_ciew(request, product_id):
     if form.is_valid():
         cleaned_data = form.cleaned_data
         quantity = cleaned_data['quantity']
-        cart.add(product, quantity)
+        cart.add(product, quantity, replace_current_quantity=cleaned_data['inplace'])
 
     return redirect('cart_details')
 
