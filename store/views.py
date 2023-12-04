@@ -94,6 +94,7 @@ class Cart:
             cart[str(product.id)]['product_obj'] = product
 
         for item in cart.values():
+            item['total_price'] = item['product_obj'].price * item['quantity']
             yield item
 
     def __len__(self):
@@ -103,11 +104,10 @@ class Cart:
         del self.session['cart']
         self.save()
 
-    def get_totall_price(self):
+    def get_total_price(self):
         product_ids = self.cart.keys()
 
-        products = Product.objects.filter(id__in=product_ids)
-        return sum(product.price for product in products)
+        return sum(item['product_obj'].price * item['quantity'] for item in self.cart.values())
     
 
 def cart_detail_view(request):
@@ -118,7 +118,7 @@ def cart_detail_view(request):
             'quantity': item['quantity'],
             'inplace': True,
         })
-        
+
     return render(request, 'cart_details.html', {'cart': cart})
 
 def add_to_cart_ciew(request, product_id):
