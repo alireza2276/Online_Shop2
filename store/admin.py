@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Product, Category, Customer, Comment
+from .models import Product, Category, Customer, Comment, Order, OrderItem
 
 
 
@@ -28,4 +28,13 @@ class CommentAdmin(admin.ModelAdmin):
     list_editable = ['status']
     list_per_page = 10
 
-    
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['user', 'first_name', 'last_name', 'datetime_created', 'is_paid']
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ['order', 'product', 'quantity', 'price']
