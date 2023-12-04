@@ -6,6 +6,7 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.decorators.http import require_POST
 from .models import Product, Comment
 from .forms import CommentForm, AddToCartProductForm
 
@@ -52,7 +53,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
 class Cart:
     def __init__(self, request):
-        self.rquest = request
+        self.request = request
         self.session = request.session
         cart = self.session.get('cart')
         if not cart:
@@ -69,6 +70,8 @@ class Cart:
             self.cart[product_id]['quantity'] = quantity
         else:
             self.cart[product_id]['quantity'] += quantity
+        
+        messages.success(self.request, 'Product successfully added')
 
         self.save()
 
@@ -77,7 +80,9 @@ class Cart:
 
         if product_id in self.cart:
             del self.cart[product_id]
-            self.save()
+
+        messages.success(self.request, 'Product successfully removed from cart')
+        self.save()
 
     
     def save(self):
@@ -121,6 +126,8 @@ def cart_detail_view(request):
 
     return render(request, 'cart_details.html', {'cart': cart})
 
+
+@require_POST
 def add_to_cart_ciew(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)

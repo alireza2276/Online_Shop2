@@ -84,11 +84,11 @@
                     <ul class="user-info-menu">
                       {% if user.is_authenticated %}
                         <li>
-                          <a class="text-right" href="{% url "account_logout" %}">Log Out</a>
+                          <a class="text-right" href="{% url 'account_logout' %}">Log Out</a>
                         </li>
                       {% else %}
                         <li>
-                          <a class="text-right" href="{% url "account_login" %}">Log in/Sign Up</a>
+                          <a class="text-right" href="{% url 'account_login' %}">Log in/Sign Up</a>
                         </li>
                       {% endif %}
                     </ul>
@@ -108,6 +108,14 @@
         </div>
       </header>
       <!-- Header End -->
+
+      {% if messages %}
+        <div class="container">
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
 
       {% block content %}
 
