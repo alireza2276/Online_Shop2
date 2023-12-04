@@ -149,6 +149,18 @@ def remove_from_cart(request, product_id):
 
     return redirect('cart_details')
 
+def clear_cart(request):
+    cart = Cart(request)
+
+    if len(cart):
+        cart.clear()
+        messages.success(request, 'Your cart successfully removed from your cart')
+
+    else:
+        messages.warning(request, 'Your cart is empty')
+
+    return redirect('products_list')
+
 
 
 

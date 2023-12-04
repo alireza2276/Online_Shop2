@@ -6,7 +6,10 @@
   Products Detail
 {% endblock %}
 
+
 {% block content %}
+{% include 'top_header.html' with header_name=product.title %}
+
   <div>
     <!-- Main Content Wrapper Start -->
     <div class="main-content-wrapper">
@@ -151,4 +154,5 @@
       </div>
     </div>
   </div>
+  {% include 'cart_sidebar.html' %}
 {% endblock %}
