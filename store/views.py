@@ -162,6 +162,9 @@ def clear_cart(request):
     return redirect('products_list')
 
 
+def order_create(request):
+    return render(request, 'order_create.html')
+
 
 
     
