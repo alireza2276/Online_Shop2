@@ -1,5 +1,6 @@
 from typing import Any
 from django.forms.models import BaseModelForm
+from .forms import OrderForm
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
@@ -7,8 +8,10 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from .models import Product, Comment
 from .forms import CommentForm, AddToCartProductForm
+from .models import OrderItem
 
 
 class HomeView(TemplateView):
@@ -127,7 +130,7 @@ def cart_detail_view(request):
     return render(request, 'cart_details.html', {'cart': cart})
 
 
-@require_POST
+@login_required
 def add_to_cart_ciew(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
@@ -149,6 +152,8 @@ def remove_from_cart(request, product_id):
 
     return redirect('cart_details')
 
+
+@require_POST
 def clear_cart(request):
     cart = Cart(request)
 
@@ -161,9 +166,44 @@ def clear_cart(request):
 
     return redirect('products_list')
 
-
+@login_required
 def order_create(request):
-    return render(request, 'order_create.html')
+    order_form = OrderForm()
+    cart = Cart(request)
+
+    if len(cart)  == 0:
+        messages.warning(request, 'You can not proceed, because your cart is empty!')
+        return redirect('products_list')
+
+    if request.method == 'POST':
+        order_form = OrderForm(request.POST)
+
+        if order_form.is_valid():
+            order_obj = order_form.save(commit=False)
+            order_obj.user = request.user
+            order_obj.save()
+
+
+            for item in cart:
+                product = item['product_obj']
+                OrderItem.objects.create(
+                    order = order_obj,
+                    product = product,
+                    quantity = item['quantity'],
+                    price = product.price,
+                )
+            
+            cart.clear()
+
+            request.user.first_name = order_obj.first_name
+            request.user.last_name = order_obj.last_name
+            request.user.save()
+
+            messages.success(request, 'Your order has successfully placed.')
+             
+    return render(request, 'order_create.html', context={
+        'form': order_form
+    })
 
 
 

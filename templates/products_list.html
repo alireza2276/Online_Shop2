@@ -51,7 +51,13 @@
                                 <span class="money-separator">-</span>
                                 <span class="old-price text-danger"><span class="money text-danger">{{ product.price }} تومان</span></span>
                               </div>
-                              <a href="cart.html" class="btn btn-small btn-bg-sand btn-color-dark px-3">اضافه کردن به سبد خرید</a>
+                              <form action="{% url 'cart_add' product.id %}" method="post">
+                                {% csrf_token %}
+                                {# {{ add_to_cart|crispy }} #}
+                                <input type="hidden" class="quantity-input" name="quantity" id="qty" value="1" min="1" />
+                                <button type="submit" class="btn btn-small btn-bg-red btn-color-white btn-hover-2"> 'Add To Cart'</button>
+                              </form>
+                              {% comment %} <a href="" class="btn btn-small btn-bg-sand btn-color-dark px-3">اضافه کردن به سبد خرید</a> {% endcomment %}
                             </div>
                           </div>
                         </div>
