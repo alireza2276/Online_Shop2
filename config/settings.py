@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # app_local
     'accounts',
     'store',
+    'payment',
     
 ]
 
@@ -189,3 +190,6 @@ ACCOUNT_SESSION_REMEMBER = True
     "debug_toolbar.panels.profiling.ProfilingPanel",
     "debug_toolbar.panels.redirects.RedirectsPanel",
 }
+
+
+ZARINPAL_MERCHANT_ID = 'DJANGO_ZARINPAL_MERCHANT_ID'
