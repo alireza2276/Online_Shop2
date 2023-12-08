@@ -1,5 +1,6 @@
 {% extends '_base.html' %}
 {% load static %}
+{%load i18n %}
 {% block title %}
   Cart
 {% endblock %}
@@ -19,11 +20,11 @@
                       <thead>
                         <tr>
                           <th>&nbsp;</th>
-                          <th>عکس محصول</th>
-                          <th class="text-left">نام محصول</th>
-                          <th>قیمت</th>
-                          <th>مقدار</th>
-                          <th>مجموع</th>
+                          <th>{% trans "product image" %}</th>
+                          <th class="text-left">{% translate "product title" %}</th>
+                          <th>{% translate "price" %}</th>
+                          <th>{% translate "quantity" %}</th>
+                          <th>{% translate "total" %}</th>
                         </tr>
                       </thead>
                       <tbody>

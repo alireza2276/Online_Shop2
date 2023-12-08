@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.shortcuts import reverse
+from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 
 
 class Category(models.Model):
@@ -36,7 +38,7 @@ class Product(models.Model):
 
 
 
-    datetime_created = models.DateTimeField(auto_now_add=True)
+    datetime_created = models.DateTimeField(default=timezone.now)
     datetime_modified = models.DateTimeField(auto_now=True)
 
 
@@ -67,8 +69,7 @@ class Comment(models.Model):
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_comments')
-    body = models.TextField()
-    image = models.ImageField(upload_to='static/user_image', blank=True)
+    body = models.TextField(_('body'))
     datetime_created = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=255, choices=COMMENT_STATUS, default=COMMENT_STATUS_WAITING)
 

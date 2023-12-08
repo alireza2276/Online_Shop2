@@ -1,11 +1,11 @@
 from django.contrib import admin
-
+from jalali_date.admin import ModelAdminJalaliMixin
 from .models import Product, Category, Customer, Comment, Order, OrderItem
 
 
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
     list_display = ['title', 'price', 'status', 'datetime_created']
 
 

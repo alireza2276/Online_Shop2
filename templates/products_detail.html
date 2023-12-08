@@ -1,14 +1,16 @@
 {% extends '_base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load jalali_tags %}
+{% load persian_template_tags %}
+{% load humanize %}
 
 {% block title %}
   Products Detail
 {% endblock %}
 
-
 {% block content %}
-{% include 'top_header.html' with header_name=product.title %}
+  {% include 'top_header.html' %}
 
   <div>
     <!-- Main Content Wrapper Start -->
@@ -24,9 +26,9 @@
                 <h3 class="product-title mb--20">{{ product.title }}</h3>
                 <p class="product-short-description mb--20">{{ product.description }}</p>
                 <div class="my-5 py-5 product-price-wrapper mb--25">
-                  <span class="money text-success">{{ product.discount }} تومان</span>
+                  <span class="money text-success">{{ product.discount|intcomma:False|translate_number }} تومان</span>
                   <span class="price-separator">-</span>
-                  <span class="money old-price text-danger">{{ product.price }} تومان</span>
+                  <span class="money old-price text-danger">{{ product.price|intcomma:False|translate_number }} تومان</span>
                 </div>
                 <div class="product-action d-flex align-items-sm-center align-content-center mb--30">
                   <form action="{% url 'cart_add' product.id %}" method="POST">
@@ -98,10 +100,14 @@
                               <div class="review__container">
                                 <div class="review__text">
                                   <div class="d-flex flex-sm-row flex-row">
-                                    <img src="" alt="Review Avatar" class="review__avatar" />
-                                    <div>
+                                    {% if product.user.image %}
+                                      <img src="{{product.user.image.url}}" alt="Review Avatar" class="review__avatar" />
+                                    {% else %}
+                                      <img src="{% static 'img/comment-1.jpg' %}" alt="Review Avatar" class="review__avatar" />
+                                    {% endif %}
+                                    <div dir="ltr">
                                       <div class="review__meta" dir="ltr">
-                                        <span class="review__published-date">{{ comment.datetime_created }}</span>
+                                        <span class="review__published-date">{{ comment.datetime_created|to_jalali:'%Y/%m/%d'|translate_number }}</span>
                                         <span class="review__dash">-</span>
                                         <strong class="review__author px-4">{{ comment.author.username }}</strong>
                                       </div>

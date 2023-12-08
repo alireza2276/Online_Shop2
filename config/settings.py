@@ -39,10 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django.contrib.humanize',
+
      # third_party_apps
+    'jalali_date',
     'debug_toolbar',
     'crispy_forms',
     'crispy_bootstrap5',
+    'rosetta',
+    
 
     'allauth',
     'allauth.account',
@@ -51,6 +56,7 @@ INSTALLED_APPS = [
     'accounts',
     'store',
     'payment',
+    'persian_translate',
     
 ]
 
@@ -95,6 +101,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -145,12 +152,16 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa-ir'
 
-TIME_ZONE = 'UTC'
+
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
+
 
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
 
 
@@ -193,3 +204,14 @@ ACCOUNT_SESSION_REMEMBER = True
 
 
 ZARINPAL_MERCHANT_ID = 'DJANGO_ZARINPAL_MERCHANT_ID'
+
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('fa', 'Persian'),
+)
+
+
+LOCALE_PATHS = [
+    os.path.join(str(BASE_DIR.joinpath('templates')), 'locale')
+]
