@@ -10,7 +10,7 @@ from ckeditor.fields import RichTextField
 
 class Category(models.Model):
     title = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
 
     def __str__(self):
@@ -31,6 +31,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     title = models.CharField(max_length=255)
     description = RichTextField()
+    short_description = models.TextField(blank=True)
     price = models.PositiveIntegerField(default=0)
     discount = models.PositiveIntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='static/product_cover', blank=True)

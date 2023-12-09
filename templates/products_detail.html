@@ -4,9 +4,10 @@
 {% load jalali_tags %}
 {% load persian_template_tags %}
 {% load humanize %}
+{% load i18n %}
 
 {% block title %}
-  Products Detail
+  {% trans "Products Detail" %}
 {% endblock %}
 
 {% block content %}
@@ -26,9 +27,9 @@
                 <h3 class="product-title mb--20">{{ product.title }}</h3>
                 <p class="product-short-description mb--20">{{ product.description|safe }}</p>
                 <div class="my-5 py-5 product-price-wrapper mb--25">
-                  <span class="money text-success">{{ product.discount|intcomma:False|translate_number }} تومان</span>
+                  <span class="money text-success">{{ product.discount|intcomma:False|translate_number }} {% trans "$" %}</span>
                   <span class="price-separator">-</span>
-                  <span class="money old-price text-danger">{{ product.price|intcomma:False|translate_number }} تومان</span>
+                  <span class="money old-price text-danger">{{ product.price|intcomma:False|translate_number }} {% trans "$" %}</span>
                 </div>
                 <div class="product-action d-flex align-items-sm-center align-content-center mb--30">
                   <form action="{% url 'cart_add' product.id %}" method="POST">
@@ -37,8 +38,9 @@
                     <div class="quantity">
                       <input type="number" class="quantity-input" name="quantity" id="qty" value="1" min="1" max="31" />
                     </div>
+                    <hr>
 
-                    <button class="btn" type="submit">Add To Cart</button>
+                    <button class="btn btn-small btn-bg-red btn-color-white btn-hover-2" type="submit">{% trans "Add to cart" %}</button>
                   </form>
                   {% comment %} <div class="quantity-wrapper d-flex justify-content-start">
                     <div class="quantity">
@@ -49,8 +51,8 @@
                 </div>
                 <div class="product-footer-meta mt-5 pt-5">
                   <p>
-                    f
-                    <span class="m-0">دسته بندی ها:</span>
+                   
+                    <span class="m-0">{% trans "categories" %}:</span>
                     <a href="shop.html">{{ product.category.title }}</a>
                   </p>
                 </div>
@@ -61,9 +63,9 @@
             <div class="col-12">
               <div class="product-data-tab tab-style-3">
                 <div class="nav nav-tabs product-data-tab__head" id="product-tab" role="tablist">
-                  <a class="m-0 product-data-tab__link nav-link active" id="nav-description-tab" data-toggle="tab" href="#nav-description" role="tab" aria-selected="true"><span>توضیحات محصول</span></a>
-                  <a class="m-0 product-data-tab__link nav-link" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-selected="true"><span>ویژگی ها</span></a>
-                  <a class="m-0 product-data-tab__link nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab" aria-selected="true"><span>نظرات ({{ product.comments.all|length }})</span></a>
+                  <a class="m-0 product-data-tab__link nav-link active" id="nav-description-tab" data-toggle="tab" href="#nav-description" role="tab" aria-selected="true"><span>{% trans "product description" %}</span></a>
+                  <a class="m-0 product-data-tab__link nav-link" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-selected="true"><span>{% trans "feature" %}</span></a>
+                  <a class="m-0 product-data-tab__link nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab" aria-selected="true"><span>{% trans "comment" %}({{ product.comments.all|length|translate_number }})</span></a>
                 </div>
                 <div class="tab-content product-data-tab__content" id="product-tabContent">
                   <div class="tab-pane fade show active" id="nav-description" role="tabpanel" aria-labelledby="nav-description-tab">
@@ -77,11 +79,11 @@
                       <table class="table shop_attributes">
                         <tbody>
                           <tr>
-                            <th>وزن</th>
-                            <td>{{ product.weight }} گرم</td>
+                            <th>{% trans "weight" %}</th>
+                            <td>{{ product.weight }} {% trans "gr" %}</td>
                           </tr>
                           <tr>
-                            <th>رنگ</th>
+                            <th>{% trans "color" %}</th>
                             <td>
                               <a href="shop-sidebar.html">{{ product.color }}</a>
                             </td>
@@ -93,7 +95,7 @@
                   <div class="tab-pane fade" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
                     <div class="product-reviews">
                       <h3 class="review__title">
-                        {{ product.comments.all|length }} نظر برای {{ product.title }}
+                        {{ product.comments.all|length }} {% trans "comment for" %}{{ product.title }}
                         <ul class="review__list">
                           {% for comment in product.comments.all %}
                             <li class="review__item">
@@ -101,7 +103,7 @@
                                 <div class="review__text">
                                   <div class="d-flex flex-sm-row flex-row">
                                     {% if product.user.image %}
-                                      <img src="{{product.user.image.url}}" alt="Review Avatar" class="review__avatar" />
+                                      <img src="{{ product.user.image.url }}" alt="Review Avatar" class="review__avatar" />
                                     {% else %}
                                       <img src="{% static 'img/comment-1.jpg' %}" alt="Review Avatar" class="review__avatar" />
                                     {% endif %}
@@ -129,15 +131,15 @@
                             <div class="border-top py-5 w-100"></div>
                             <div class="col-lg-8 m-auto">
                               {% if user.is_authenticated %}
-                                <span class="reply-title pull-right">Write your comment</span>
+                                <span class="reply-title pull-right">{% trans "write you comment" %}</span>
                                 <br />
                                 <form action="{% url 'comment_create' product.id %}" method="post">
                                   {% csrf_token %}
                                   {{ comment_form|crispy }}
-                                  <input type="submit" value="Submit" />
+                                  <input type="submit" value="{% trans "Submit" %}" />
                                 </form>
                               {% else %}
-                                <a class="btn btn-danger" href="{% url 'account_login' %}"><p>You first Login</p></a>
+                                <a class="btn btn-danger" href="{% url 'account_login' %}"><p>{% trans "You first Login" %}</p></a>
                               {% endif %}
                             </div>
                           </div>

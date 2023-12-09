@@ -1,6 +1,7 @@
 
 {% load persian_template_tags %}
 {% load humanize %}
+{% load i18n %}
 
 <!-- Mini Cart Start -->
 
@@ -15,26 +16,26 @@
           {% for item in cart %}
             <li class="mini-cart__product d-flex justify-content-between">
               <div class="mini-cart__product__image">
-                <a href="#"><img src="assets/img/products/prod-1-100x100.jpg" alt="products" /></a>
+                <a href="{{item.product_obj.get_absolute_url}}"><img src="{{item.product_obj.image.url}}" alt="products" /></a>
               </div>
               <div class="mini-cart__product__content pt-2">
                 <span class="mini-cart__product__title d-flex flex-row justify-content-between">
-                  <a href="#">{{ item.product_obj.title }}</a>
+                  <a href="{{item.product_obj.get_absolute_url}}">{{ item.product_obj.title }}</a>
                   <a href="#" class="">&#10060;</a>
                 </span>
-                <span class="mini-cart__product__quantity"><span>{{ item.product_obj.price|intcomma:False|translate_number }} تومان</span> &#215; <span>{{ item.quantity }}</span></span>
+                <span class="mini-cart__product__quantity"><span>{{ item.product_obj.price|intcomma:False|translate_number }} {% trans "$" %}</span> &#215; <span>{{ item.quantity }}</span></span>
               </div>
             </li>
           {% endfor %}
         </ul>
         <div class="mini-cart__total">
-          <span>جمع کل</span>
-          <span class="ammount">{{ cart.get_total_price|intcomma:False|translate_number }} تومان</span>
+          <span>{% trans "total" %}</span>
+          <span class="ammount">{{ cart.get_total_price|intcomma:False|translate_number }} {% trans "$" %}</span>
         </div>
         <div class="mini-cart__buttons">
-          <a href="{% url 'cart_details' %}" class="btn btn-fullwidth btn-bg-sand mb--20">مشاهده سبد خرید</a>
+          <a href="{% url 'cart_details' %}" class="btn btn-fullwidth btn-bg-sand mb--20">{% trans "see cart" %}</a>
           {% if cart|length %}
-            <a href="{% url 'order_create' %}" class="btn btn-fullwidth btn-bg-sand">trans 'Checkout'</a>
+            <a href="{% url 'order_create' %}" class="btn btn-fullwidth btn-bg-sand">{% trans "Checkout" %}</a>
           {% endif %}
         </div>
       </div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-08 17:25+0330\n"
+"POT-Creation-Date: 2023-12-09 22:30+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,23 +18,101 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\cart_details.html:23
+#: .\cart_details.html:26
 msgid "product image"
 msgstr "عکس محصول"
 
-#: .\cart_details.html:24
-
+#: .\cart_details.html:29
 msgid "product title"
 msgstr "عنوان محصول"
 
-#: .\cart_details.html:25
+#: .\cart_details.html:32
 msgid "price"
 msgstr "قیمت"
 
-#: .\cart_details.html:26
+#: .\cart_details.html:35
 msgid "quantity"
 msgstr "تعداد"
 
-#: .\cart_details.html:27
+#: .\cart_details.html:38 .\cart_details.html:106 .\cart_sidebar.html:32
 msgid "total"
 msgstr "مجموع"
+
+#: .\cart_details.html:68 .\cart_details.html:109 .\cart_sidebar.html:26
+#: .\cart_sidebar.html:33 .\products_detail.html:30 .\products_detail.html:32
+msgid "$"
+msgstr "تومان"
+
+#: .\cart_details.html:76
+msgid "Cart is Empty! Please add to cart some products."
+msgstr "سبد خرید شما خالی است ."
+
+#: .\cart_details.html:85
+msgid "Clear cart"
+msgstr "خالی کردن سبد خرید"
+
+#: .\cart_details.html:114
+msgid "checkout"
+msgstr "ثبت سفارش"
+
+#: .\cart_sidebar.html:36
+msgid "see cart"
+msgstr "مشاهده سبد خرید"
+
+#: .\cart_sidebar.html:38
+msgid "Checkout"
+msgstr "ثبت سفارش"
+
+#: .\products_detail.html:10
+msgid "Products Detail"
+msgstr "جزییات محصول"
+
+#: .\products_detail.html:44
+msgid "Add to cart"
+msgstr "اضافه کردن به سبد خرید"
+
+#: .\products_detail.html:57
+msgid "categories"
+msgstr "دسته بندی ها"
+
+#: .\products_detail.html:68
+
+msgid "product description"
+msgstr "توضیحات محصول"
+
+#: .\products_detail.html:69
+msgid "feature"
+msgstr "ویژگی ها"
+
+#: .\products_detail.html:70
+
+msgid "comment"
+msgstr "نظر "
+
+#: .\products_detail.html:84
+msgid "weight"
+msgstr "وزن"
+
+#: .\products_detail.html:85
+msgid "gr"
+msgstr "گرم"
+
+#: .\products_detail.html:88
+msgid "color"
+msgstr "رنگ"
+
+#: .\products_detail.html:100
+msgid "comment for"
+msgstr "نظر برای"
+
+#: .\products_detail.html:136
+msgid "write you comment"
+msgstr "نظر خود را وارد کنید"
+
+#: .\products_detail.html:141
+msgid "Submit"
+msgstr "ارسال"
+
+#: .\products_detail.html:144
+msgid "You first Login"
+msgstr "اول وارد شوید!"
