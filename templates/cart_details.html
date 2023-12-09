@@ -1,6 +1,8 @@
 {% extends '_base.html' %}
 {% load static %}
-{%load i18n %}
+{% load i18n %}
+{% load persian_template_tags %}
+{% load humanize %}
 {% block title %}
   Cart
 {% endblock %}
@@ -20,11 +22,21 @@
                       <thead>
                         <tr>
                           <th>&nbsp;</th>
-                          <th>{% trans "product image" %}</th>
-                          <th class="text-left">{% translate "product title" %}</th>
-                          <th>{% translate "price" %}</th>
-                          <th>{% translate "quantity" %}</th>
-                          <th>{% translate "total" %}</th>
+                          <th>
+                            {% trans 'product image' %}
+                          </th>
+                          <th class="text-left">
+                            {% translate 'product title' %}
+                          </th>
+                          <th>
+                            {% translate 'price' %}
+                          </th>
+                          <th>
+                            {% translate 'quantity' %}
+                          </th>
+                          <th>
+                            {% translate 'total' %}
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -34,26 +46,26 @@
                               <a href="{% url 'cart_remove' item.product_obj.id %}"><i class="flaticon flaticon-cross"></i></a>
                             </td>
                             <td class="product-thumbnail text-left">
-                              <img src="assets/img/products/prod-10-70x88.jpg" alt="Product Thumnail" />
+                              <img src="{{ item.product_obj.image.url }}" alt="Product Thumnail" />
                             </td>
                             <td class="product-name wide-column">
                               <h3><a href="{{ item.product_obj.get_absolute_url }}">{{ item.product_obj.title }}</a></h3>
                             </td>
                             <td class="product-price">
-                              <span class="product-price-wrapper"><span class="money">{{ item.product_obj.price }}</span></span>
+                              <span class="product-price-wrapper"><span class="money">{{ item.product_obj.price|intcomma:False|translate_number }}</span></span>
                             </td>
                             <td class="product-quantity">
-                              <form action="{% url 'cart_add' item.product_obj.id %}" method="POST">
+                              <form class="d-flex" action="{% url 'cart_add' item.product_obj.id %}" method="POST">
                                 {% csrf_token %}
                                 <div class="quantity">
                                   <input type="number" class="quantity-input" name="quantity" id="qty-1" value="{{ item.quantity }}" min="1" />
                                 </div>
                                 {{ item.product_update_quantity_form.inplace }}
-                                <button type="submit">Update</button>
+                                <button class="small" type="submit"><i class="fa fa-refresh"></i></button>
                               </form>
                             </td>
                             <td class="product-total-price">
-                              <span class="product-price-wrapper"><span class="money">{{ item.total_price }} تومان</span></span>
+                              <span class="product-price-wrapper"><span class="money">{{ item.total_price|intcomma:False|translate_number }} تومان</span></span>
                             </td>
                           </tr>
                         {% endfor %}
@@ -67,7 +79,7 @@
               </div>
             </div>
             <form action="{% url 'cart_clear' %}" method="POST">
-                {% csrf_token %}
+              {% csrf_token %}
               <div class="row no-gutters border-top pt--20 mt--20">
                 <div class="col-sm-6 text-sm-right">
                   <button type="submit" class="cart-form__btn">خالی کردن سبد خرید</button>
@@ -93,7 +105,7 @@
                       <span>جمع کل</span>
                     </div>
                     <div class="cart-calculator__item--value">
-                      <span class="product-price-wrapper"><span class="money">{{ cart.get_total_price }} تومان</span></span>
+                      <span class="product-price-wrapper"><span class="money">{{ cart.get_total_price|intcomma:False|translate_number }} تومان</span></span>
                     </div>
                   </div>
                 </div>

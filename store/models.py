@@ -4,6 +4,8 @@ from django.conf import settings
 from django.shortcuts import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from ckeditor.fields import RichTextField
+
 
 
 class Category(models.Model):
@@ -28,7 +30,7 @@ class Product(models.Model):
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     title = models.CharField(max_length=255)
-    description = models.TextField()
+    description = RichTextField()
     price = models.PositiveIntegerField(default=0)
     discount = models.PositiveIntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='static/product_cover', blank=True)

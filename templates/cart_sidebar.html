@@ -1,4 +1,10 @@
+
+{% load persian_template_tags %}
+{% load humanize %}
+
 <!-- Mini Cart Start -->
+
+
 <aside class="mini-cart" id="miniCart">
   <div class="mini-cart-wrapper">
     <a href="" class="btn-close"><i class="flaticon flaticon-cross"></i></a>
@@ -16,14 +22,14 @@
                   <a href="#">{{ item.product_obj.title }}</a>
                   <a href="#" class="">&#10060;</a>
                 </span>
-                <span class="mini-cart__product__quantity"><span>{{ item.product_obj.price }} تومان</span> &#215; <span>{{ item.quantity }}</span></span>
+                <span class="mini-cart__product__quantity"><span>{{ item.product_obj.price|intcomma:False|translate_number }} تومان</span> &#215; <span>{{ item.quantity }}</span></span>
               </div>
             </li>
           {% endfor %}
         </ul>
         <div class="mini-cart__total">
           <span>جمع کل</span>
-          <span class="ammount">{{ cart.get_total_price }} تومان</span>
+          <span class="ammount">{{ cart.get_total_price|intcomma:False|translate_number }} تومان</span>
         </div>
         <div class="mini-cart__buttons">
           <a href="{% url 'cart_details' %}" class="btn btn-fullwidth btn-bg-sand mb--20">مشاهده سبد خرید</a>
