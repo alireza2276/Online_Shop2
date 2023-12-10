@@ -20,6 +20,7 @@ class HomeView(TemplateView):
 
 class ProductListView(ListView):
     model = Product
+    paginate_by = 5
     template_name = 'products_list.html'
     context_object_name = 'products'
 
