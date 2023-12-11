@@ -1,7 +1,7 @@
 from typing import Any
 from django.forms.models import BaseModelForm
 from .forms import OrderForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView, DetailView, CreateView
 from django.shortcuts import get_object_or_404
@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Product, Comment
 from .forms import CommentForm, AddToCartProductForm
 from .models import OrderItem
+from django.urls import reverse
 
 
 class HomeView(TemplateView):
@@ -33,6 +34,10 @@ class ProductDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        stuff = get_object_or_404(Product, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+        context['total_likes'] = total_likes
         context['comment_form'] = CommentForm()
         context['add_to_cart_form'] = AddToCartProductForm()
         return context
@@ -207,7 +212,12 @@ def order_create(request):
         'form': order_form
     })
 
-
+# Like Product
+@login_required
+def likeview(request, pk):
+    product = get_object_or_404(Product, id=request.POST.get('product_id'))
+    product.likes.add(request.user)
+    return HttpResponseRedirect(reverse('products_detail', args=[str(pk)]))
 
     
 

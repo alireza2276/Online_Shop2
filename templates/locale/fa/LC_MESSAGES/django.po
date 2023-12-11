@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-09 22:30+0330\n"
+"POT-Creation-Date: 2023-12-10 21:48+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,21 +71,19 @@ msgstr "جزییات محصول"
 msgid "Add to cart"
 msgstr "اضافه کردن به سبد خرید"
 
-#: .\products_detail.html:57
+#: .\products_detail.html:56
 msgid "categories"
 msgstr "دسته بندی ها"
 
-#: .\products_detail.html:68
-
+#: .\products_detail.html:67
 msgid "product description"
 msgstr "توضیحات محصول"
 
-#: .\products_detail.html:69
+#: .\products_detail.html:68
 msgid "feature"
 msgstr "ویژگی ها"
 
-#: .\products_detail.html:70
-
+#: .\products_detail.html:69
 msgid "comment"
 msgstr "نظر "
 
@@ -93,26 +91,34 @@ msgstr "نظر "
 msgid "weight"
 msgstr "وزن"
 
-#: .\products_detail.html:85
+#: .\products_detail.html:87
 msgid "gr"
 msgstr "گرم"
 
-#: .\products_detail.html:88
+#: .\products_detail.html:92
 msgid "color"
 msgstr "رنگ"
 
-#: .\products_detail.html:100
+#: .\products_detail.html:105
 msgid "comment for"
 msgstr "نظر برای"
 
-#: .\products_detail.html:136
+#: .\products_detail.html:141
 msgid "write you comment"
 msgstr "نظر خود را وارد کنید"
 
-#: .\products_detail.html:141
-msgid "Submit"
+#: .\products_detail.html:154
+
+msgid "your comment"
+msgstr "نظر خود را وارد کنید"
+
+#: .\products_detail.html:161
+msgid "Send"
 msgstr "ارسال"
 
-#: .\products_detail.html:144
+#: .\products_detail.html:169
 msgid "You first Login"
 msgstr "اول وارد شوید!"
+
+#~ msgid "Submit"
+#~ msgstr "ارسال"

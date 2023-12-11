@@ -1,4 +1,6 @@
 {% extends '_base.html' %}
+{% load humanize %}
+{% load persian_template_tags %}
 
 {% block title %}
   Order_create
@@ -76,16 +78,16 @@
                       <tr>
                         <th>
                           {{ item.product_obj.title }}
-                          <strong><span>&#10005;</span>{{ item.quantity }}</strong>
+                          <strong><span>&#10005;</span>{{ item.quantity|translate_number }}</strong>
                         </th>
-                        <td class="text-right">{{ item.product_obj.price }} تومان</td>
+                        <td class="text-right">{{ item.product_obj.price|intcomma:False|translate_number }} تومان</td>
                       </tr>
                     {% endfor %}
                   </tbody>
                   <tfoot>
                     <tr class="cart-subtotal">
                       <th>مجموع</th>
-                      <td class="text-right">{{ cart.get_total_price }} تومان</td>
+                      <td class="text-right">{{ cart.get_total_price|intcomma:False|translate_number }} تومان</td>
                     </tr>
                   </tfoot>
                 </table>

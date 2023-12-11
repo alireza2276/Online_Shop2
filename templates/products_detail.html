@@ -7,7 +7,7 @@
 {% load i18n %}
 
 {% block title %}
-  {% trans "Products Detail" %}
+  {% trans 'Products Detail' %}
 {% endblock %}
 
 {% block content %}
@@ -26,11 +26,18 @@
               <div class="product-summary pl-lg--30 pl-md--0 text-right p-4">
                 <h3 class="product-title mb--20">{{ product.title }}</h3>
                 <p class="product-short-description mb--20">{{ product.description|safe }}</p>
-                <div class="my-5 py-5 product-price-wrapper mb--25">
-                  <span class="money text-success">{{ product.discount|intcomma:False|translate_number }} {% trans "$" %}</span>
-                  <span class="price-separator">-</span>
-                  <span class="money old-price text-danger">{{ product.price|intcomma:False|translate_number }} {% trans "$" %}</span>
-                </div>
+                {% if product.discount %}
+                  <div class="my-5 py-5 product-price-wrapper mb--25">
+                    <span class="money text-success">{{ product.discount|intcomma:False|translate_number }} {% trans '$' %}</span>
+                    <span class="price-separator">-</span>
+                    <span class="money old-price text-danger">{{ product.price|intcomma:False|translate_number }} {% trans '$' %}</span>
+                  </div>
+                {% else %}
+                  <div class="my-5 py-5 product-price-wrapper mb--25">
+                    <span class="money text-success">{{ product.price|intcomma:False|translate_number }} {% trans '$' %}</span>
+                  </div>
+                {% endif %}
+
                 <div class="product-action d-flex align-items-sm-center align-content-center mb--30">
                   <form action="{% url 'cart_add' product.id %}" method="POST">
                     {% csrf_token %}
@@ -38,9 +45,9 @@
                     <div class="quantity">
                       <input type="number" class="quantity-input" name="quantity" id="qty" value="1" min="1" max="31" />
                     </div>
-                    <hr>
+                    <hr />
 
-                    <button class="btn btn-small btn-bg-red btn-color-white btn-hover-2" type="submit">{% trans "Add to cart" %}</button>
+                    <button class="btn btn-small btn-bg-red btn-color-white btn-hover-2" type="submit">{% trans 'Add to cart' %}</button>
                   </form>
                   {% comment %} <div class="quantity-wrapper d-flex justify-content-start">
                     <div class="quantity">
@@ -50,11 +57,11 @@
                   <button type="button" class="btn btn-small btn-bg-red btn-color-white btn-hover-2" onclick="window.location.href='cart.html'">اضافه به سبد خرید</button> {% endcomment %}
                 </div>
                 <div class="product-footer-meta mt-5 pt-5">
-                  <p>
-                   
-                    <span class="m-0">{% trans "categories" %}:</span>
-                    <a href="shop.html">{{ product.category.title }}</a>
-                  </p>
+                  <form action="{% url 'likes' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn" type="submit" name="product_id" value="{{ product.id }}"><i class="flaticon flaticon-like"></i></button>
+                    {{ total_likes }} Likes
+                  </form>
                 </div>
               </div>
             </div>
@@ -63,9 +70,9 @@
             <div class="col-12">
               <div class="product-data-tab tab-style-3">
                 <div class="nav nav-tabs product-data-tab__head" id="product-tab" role="tablist">
-                  <a class="m-0 product-data-tab__link nav-link active" id="nav-description-tab" data-toggle="tab" href="#nav-description" role="tab" aria-selected="true"><span>{% trans "product description" %}</span></a>
-                  <a class="m-0 product-data-tab__link nav-link" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-selected="true"><span>{% trans "feature" %}</span></a>
-                  <a class="m-0 product-data-tab__link nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab" aria-selected="true"><span>{% trans "comment" %}({{ product.comments.all|length|translate_number }})</span></a>
+                  <a class="m-0 product-data-tab__link nav-link active" id="nav-description-tab" data-toggle="tab" href="#nav-description" role="tab" aria-selected="true"><span>{% trans 'product description' %}</span></a>
+                  <a class="m-0 product-data-tab__link nav-link" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-selected="true"><span>{% trans 'feature' %}</span></a>
+                  <a class="m-0 product-data-tab__link nav-link" id="nav-reviews-tab" data-toggle="tab" href="#nav-reviews" role="tab" aria-selected="true"><span>{% trans 'comment' %}({{ product.comments.all|length|translate_number }})</span></a>
                 </div>
                 <div class="tab-content product-data-tab__content" id="product-tabContent">
                   <div class="tab-pane fade show active" id="nav-description" role="tabpanel" aria-labelledby="nav-description-tab">
@@ -79,11 +86,17 @@
                       <table class="table shop_attributes">
                         <tbody>
                           <tr>
-                            <th>{% trans "weight" %}</th>
-                            <td>{{ product.weight }} {% trans "gr" %}</td>
+                            <th>
+                              {% trans 'weight' %}
+                            </th>
+                            <td>
+                              {{ product.weight }} {% trans 'gr' %}
+                            </td>
                           </tr>
                           <tr>
-                            <th>{% trans "color" %}</th>
+                            <th>
+                              {% trans 'color' %}
+                            </th>
                             <td>
                               <a href="shop-sidebar.html">{{ product.color }}</a>
                             </td>
@@ -95,7 +108,7 @@
                   <div class="tab-pane fade" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
                     <div class="product-reviews">
                       <h3 class="review__title">
-                        {{ product.comments.all|length }} {% trans "comment for" %}{{ product.title }}
+                        {{ product.comments.all|length }} {% trans 'comment for' %} {{ product.title }}
                         <ul class="review__list">
                           {% for comment in product.comments.all %}
                             <li class="review__item">
@@ -131,15 +144,36 @@
                             <div class="border-top py-5 w-100"></div>
                             <div class="col-lg-8 m-auto">
                               {% if user.is_authenticated %}
-                                <span class="reply-title pull-right">{% trans "write you comment" %}</span>
+                                <span class="reply-title pull-right">{% trans 'write you comment' %}</span>
                                 <br />
-                                <form action="{% url 'comment_create' product.id %}" method="post">
+                                <br />
+                                {% comment %} <form action="{% url 'comment_create' product.id %}" method="post">
                                   {% csrf_token %}
                                   {{ comment_form|crispy }}
-                                  <input type="submit" value="{% trans "Submit" %}" />
+                                  <input type="submit" value="{% trans 'Submit' %}" />
+                                </form> {% endcomment %}
+
+                                <form action="{% url 'comment_create' product.id %}" class="form text-right" method="post">
+                                  {% csrf_token %}
+
+                                  <div class="form__group mb--10">
+                                    <textarea name="body" id="review" class="form__input form__input--textarea"></textarea>
+                                  </div>
+
+                                  <div class="form__group">
+                                    <div class="form-row">
+                                      <div class="col-12">
+                                        <input type="submit" value="{% trans 'Send' %}" class="btn-submit" />
+                                      </div>
+                                    </div>
+                                  </div>
                                 </form>
                               {% else %}
-                                <a class="btn btn-danger" href="{% url 'account_login' %}"><p>{% trans "You first Login" %}</p></a>
+                                <a class="btn btn-danger" href="{% url 'account_login' %}">
+                                  <p>
+                                    {% trans 'You first Login' %}
+                                  </p>
+                                </a>
                               {% endif %}
                             </div>
                           </div>

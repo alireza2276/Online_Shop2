@@ -21,11 +21,11 @@ class Category(models.Model):
 class Product(models.Model):
 
     COLOR_CHOICES = [
-        ('BLACK', 'black'),
-        ('BLUE', 'blue'),
-        ('WHITE', 'white'),
-        ('RED', 'red'),
-        ('PINK', 'pink'),
+        (_('BLACK'), 'black'),
+        (_('BLUE'), 'blue'),
+        (_('WHITE'), 'white'),
+        (_('RED'), 'red'),
+        (_('PINK'), 'pink'),
     ]
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
@@ -38,11 +38,14 @@ class Product(models.Model):
     status = models.BooleanField(default=True)
     weight = models.IntegerField()
     color = models.CharField(max_length=255, choices=COLOR_CHOICES, default='black')
-
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='user_likes')
 
 
     datetime_created = models.DateTimeField(default=timezone.now)
     datetime_modified = models.DateTimeField(auto_now=True)
+
+    def total_likes(self):
+        return self.likes.count()
 
 
     def __str__(self) -> str:
