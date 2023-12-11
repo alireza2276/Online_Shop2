@@ -38,6 +38,12 @@ class ProductDetailView(DetailView):
         stuff = get_object_or_404(Product, id=self.kwargs['pk'])
         total_likes = stuff.total_likes()
         context['total_likes'] = total_likes
+
+        liked = False
+        if stuff.likes.filter(id=self.request.user.id).exists():
+            liked = True
+        context['liked'] = liked
+
         context['comment_form'] = CommentForm()
         context['add_to_cart_form'] = AddToCartProductForm()
         return context
@@ -216,7 +222,15 @@ def order_create(request):
 @login_required
 def likeview(request, pk):
     product = get_object_or_404(Product, id=request.POST.get('product_id'))
-    product.likes.add(request.user)
+
+    liked = False
+
+    if product.likes.filter(id=request.user.id).exists():
+        product.likes.remove(request.user)
+        liked = False
+    else:
+        product.likes.add(request.user)
+        liked = True
     return HttpResponseRedirect(reverse('products_detail', args=[str(pk)]))
 
     

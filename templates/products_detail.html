@@ -57,11 +57,25 @@
                   <button type="button" class="btn btn-small btn-bg-red btn-color-white btn-hover-2" onclick="window.location.href='cart.html'">اضافه به سبد خرید</button> {% endcomment %}
                 </div>
                 <div class="product-footer-meta mt-5 pt-5">
-                  <form action="{% url 'likes' product.id %}" method="post">
-                    {% csrf_token %}
-                    <button class="btn" type="submit" name="product_id" value="{{ product.id }}"><i class="flaticon flaticon-like"></i></button>
-                    {{ total_likes }} Likes
-                  </form>
+                  {% if user.is_authenticated %}
+                    {% if liked %}
+                      <form action="{% url 'likes' product.id %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn" type="submit" name="product_id" value="{{ product.id }}"><i class="flaticon flaticon-like"></i></button>
+                        {{ total_likes }} Likes
+                      </form>
+                    {% else %}
+                      <form action="{% url 'likes' product.id %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn" type="submit" name="product_id" value="{{ product.id }}"><i class="flaticon flaticon-like"></i></button>
+                        {{ total_likes }} Likes
+                      </form>
+                    {% endif %}
+
+                    {% else %}
+                    <small>For like this product you must login First!</small>
+                    <a class="btn" href="{% url "account_login" %}">Login</a>
+                  {% endif %}
                 </div>
               </div>
             </div>
