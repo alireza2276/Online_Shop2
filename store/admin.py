@@ -1,6 +1,6 @@
 from django.contrib import admin
 from jalali_date.admin import ModelAdminJalaliMixin
-from .models import Product, Category, Customer, Comment, Order, OrderItem, Contact
+from .models import Product, Category, Customer, Comment, Order, OrderItem, Contact, Information
 
 
 
@@ -43,3 +43,8 @@ class OrderItemAdmin(admin.ModelAdmin):
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ['full_name', 'email', 'address', 'body', 'datetime_created']
+
+
+@admin.register(Information)
+class InformationAdmin(admin.ModelAdmin):
+    list_display = ['address', 'phone_number', 'email', 'instagram']

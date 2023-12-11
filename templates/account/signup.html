@@ -1,8 +1,9 @@
 {% extends '_base.html' %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 {% block title %}
-  Sign Up
+  {% trans "Sign Up" %}
 {% endblock %}
 
 {% block content %}
@@ -10,16 +11,14 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-6 text-center mb-5">
-          <h2 class="heading-section">Sign Up</h2>
+          <h2 class="heading-section">{% trans "Sign Up" %}</h2>
         </div>
       </div>
       <div class="row justify-content-center">
         <div class="col-md-7 col-lg-5">
           <div class="login-wrap p-4 p-md-5">
             <div class="d-flex">
-              <div class="w-100">
-                <h3 class="mb-4">Sign Up</h3>
-              </div>
+              
               <div class="w-100">
                 <p class="social-media d-flex justify-content-end">
                   <a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a>
@@ -39,17 +38,15 @@
                   </label>
                 </div>
                 <div class="w-100 d-flex justify-content-end">
-                  <button type="submit" class="btn btn-primary rounded submit">Sign Up</button>
+                  <button type="submit" class="btn btn-primary rounded submit">{% trans "Sign Up" %}</button>
                 </div>
               </div>
               <div class="form-group mt-4">
                 <div class="w-100 text-center">
                   <p class="mb-1">
-                    Don't have an account? <a href="#">Sign Up</a>
+                    {% trans "Do you have an account?" %} <a href="{% url "account_login" %}">{% trans "Login" %}</a>
                   </p>
-                  <p>
-                    <a href="#">Forgot Password</a>
-                  </p>
+                  
                 </div>
               </div>
             </form>

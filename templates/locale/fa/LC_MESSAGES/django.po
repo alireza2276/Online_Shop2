@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-11 20:15+0330\n"
+"POT-Creation-Date: 2023-12-11 22:17+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,38 @@ msgstr ""
 #: .\_base.html:62
 msgid "Contact"
 msgstr "ارتباط با ما"
+
+#: .\account\login.html:22 .\account\login.html:49 .\account\signup.html:47
+msgid "Login"
+msgstr "ورود"
+
+#: .\account\login.html:55
+msgid "Don't have an account?"
+msgstr "آیا تا به حال ثبت نام نکرده اید؟"
+
+#: .\account\login.html:55
+msgid "SignUp"
+msgstr "ثبت نام"
+
+#: .\account\logout.html:9
+msgid "Log Out"
+msgstr "خروج"
+
+#: .\account\logout.html:10
+msgid "Are you sure to log out of this page?"
+msgstr "آیا شما می خواهید از حساب کاربری خود خارج شوید؟"
+
+#: .\account\logout.html:15
+msgid "Yes I`m Sure"
+msgstr "بله. من مطمئن هستم."
+
+#: .\account\signup.html:6 .\account\signup.html:14 .\account\signup.html:41
+msgid "Sign Up"
+msgstr "ثبت نام"
+
+#: .\account\signup.html:47
+msgid "Do you have an account?"
+msgstr "آیا ثبت نام کرده اید؟"
 
 #: .\cart_details.html:26
 msgid "product image"

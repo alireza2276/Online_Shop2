@@ -131,3 +131,11 @@ class Contact(models.Model):
 
     def __str__(self) -> str:
         return f"{self.full_name} {self.email}"
+    
+#information 
+
+class Information(models.Model):
+    address = models.CharField(max_length=255)
+    phone_number = models.CharField(max_length=15)
+    email = models.EmailField()
+    instagram = models.CharField(max_length=255)
