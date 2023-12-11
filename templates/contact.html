@@ -1,0 +1,99 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% load persian_template_tags %}
+{% load i18n %}
+
+{% block title %}
+  Contact
+{% endblock %}
+
+{% block content %}
+  <!-- Main Content Wrapper Start -->
+  <div id="content" class="main-content-wrapper">
+    <div class="page-content-inner pt--75">
+      <div class="container">
+        <div class="row pb--80">
+          <div class="col-md-7 mb-sm--30">
+            <h2 class="heading__secondary mb--50 mb-md--35 mb-sm--20">پیام خود را به ما بگویید</h2>
+
+            <!-- Contact form Start Here -->
+            {% comment %} <form class="form" action="mail.php" id="contact-form">
+              <div class="form__group mb--20">
+                <input type="text" id="contact_name" name="contact_name" class="form__input form__input--2" placeholder="نام*" />
+              </div>
+              <div class="form__group mb--20">
+                <input type="email" id="contact_email" name="contact_email" class="form__input form__input--2" placeholder="ایمیل*" />
+              </div>
+              <div class="form__group mb--20">
+                <input type="text" id="contact_phone" name="contact_phone" class="form__input form__input--2" placeholder="شماره تماس*" />
+              </div>
+              <div class="form__group mb--20">
+                <textarea class="form__input form__input--textarea" id="contact_message" name="contact_message" placeholder="پیام شما*"></textarea>
+              </div>
+
+              <div class="form__output"></div>
+            </form> {% endcomment %}
+            <!-- Contact form end Here -->
+
+            <form action="" method="post">
+              {% csrf_token %}
+              {{ contact_form|crispy }}
+              <div class="form__group">
+                <button type="submut" class="btn-submit">{% trans "Send" %}</button>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-5 pl--50 pl-sm--30">
+            <h2 class="heading__secondary mb--50">اطلاعات تماس</h2>
+
+            <!-- Contact info widget start here -->
+            <div class="contact-info-widget mb--45">
+              <div class="contact-info">
+                <h3 class="heading__tertiary">آدرس پستی</h3>
+                <p>
+                  مکانی در خیابان کوچه فلان <br /> ایران تهران
+                </p>
+              </div>
+            </div>
+            <!-- Contact info widget end here -->
+
+            <!-- Contact info widget start here -->
+            <div class="contact-info-widget mb--45">
+              <div class="contact-info">
+                <h3 class="heading__tertiary">شاپینگ یار</h3>
+                <p>
+                  مکانی در خیابان کوچه فلان <br /> ایران تهران
+                </p>
+              </div>
+            </div>
+            <!-- Contact info widget end here -->
+
+            <!-- Contact info widget start here -->
+            <div class="contact-info-widget two-column-list sm-one-column mb--45">
+              <div class="contact-info mb-sm--35">
+                <h3 class="heading__tertiary">شماره تماس</h3>
+                <a href="">+98912345678</a>
+              </div>
+              <div class="contact-info">
+                <h3 class="heading__tertiary">ایمیل</h3>
+                <a href="mailto:info@la-studioweb.com">info@codingyar.com</a>
+              </div>
+            </div>
+            <!-- Contact info widget end here -->
+
+            <!-- Social Icons Start Here -->
+            <ul class="social social-sharing">
+              <li class="social__item">
+                <a href="https://instagram.com/m.hadi.hajihosseini" class="social__link instagram"><i class="fa fa-instagram"></i></a>
+              </li>
+            </ul>
+            <!-- Social Icons End Here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main Content Wrapper Start -->
+{% endblock %}

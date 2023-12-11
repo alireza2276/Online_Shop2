@@ -9,10 +9,11 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from .models import Product, Comment
-from .forms import CommentForm, AddToCartProductForm
+from .models import Product, Comment, Contact
+from .forms import CommentForm, AddToCartProductForm, ContactForm
 from .models import OrderItem
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+
 
 
 class HomeView(TemplateView):
@@ -234,9 +235,21 @@ def likeview(request, pk):
     return HttpResponseRedirect(reverse('products_detail', args=[str(pk)]))
 
     
+# contact view
+class ContactView(CreateView):
+    model = Contact
+    form_class = ContactForm
+    template_name = 'contact.html'
+    success_url = reverse_lazy('contact')
 
 
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
 
+        context['contact_form'] = ContactForm()
+        
+        return context
+    
 
 
 

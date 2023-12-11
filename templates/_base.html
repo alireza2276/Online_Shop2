@@ -1,4 +1,7 @@
 {% load static %}
+{% load humanize %}
+{% load persian_template_tags %}
+{% load i18n %}
 
 <!DOCTYPE html>
 
@@ -46,7 +49,7 @@
                 </div>
                 <div class="mainmenu-nav d-none d-lg-block w-100 pr-3">
                   <ul class="mainmenu d-lg-flex jusity-content-end jusity-content-lg-start pt-4">
-                    <li class="mainmenu__item menu-item-has-children active">
+                    <li class="mainmenu__item menu-item-has-children {% if request.resolver_match.url_name == 'products_list' %}active{% endif %} ">
                       <a href="{% url 'products_list' %}" class="mainmenu__link"><span class="mm-text">خانه</span></a>
                     </li>
                     <li class="mainmenu__item menu-item-has-children">
@@ -55,8 +58,8 @@
                     <li class="mainmenu__item menu-item-has-children">
                       <a href="#" class="mainmenu__link"><span class="mm-text">صفحات</span></a>
                     </li>
-                    <li class="mainmenu__item">
-                      <a href="contact-us.html" class="mainmenu__link"><span class="mm-text">تماس با ما</span></a>
+                    <li class="mainmenu__item {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+                      <a href="{% url "contact" %}" class="mainmenu__link "><span class="mm-text">{% trans "Contact" %}</span></a>
                     </li>
                   </ul>
                 </div>

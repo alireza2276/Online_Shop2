@@ -117,3 +117,17 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"OrderItems {self.id} : {self.product} x {self.quantity}  (price:{self.price})"
+    
+
+# contact us
+class Contact(models.Model):
+    full_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    address = models.CharField(max_length=255)
+    body = models.TextField()
+
+    datetime_created = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self) -> str:
+        return f"{self.full_name} {self.email}"

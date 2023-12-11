@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, Order
+from .models import Comment, Order, Contact
 
 
 class CommentForm(forms.ModelForm):
@@ -26,6 +26,11 @@ class OrderForm(forms.ModelForm):
             
         }
 
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['full_name', 'email', 'address', 'body']
 
     
 
