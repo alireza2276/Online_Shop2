@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-10 21:48+0330\n"
+"POT-Creation-Date: 2023-12-11 20:15+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\_base.html:62
+msgid "Contact"
+msgstr "ارتباط با ما"
 
 #: .\cart_details.html:26
 msgid "product image"
@@ -39,7 +43,8 @@ msgid "total"
 msgstr "مجموع"
 
 #: .\cart_details.html:68 .\cart_details.html:109 .\cart_sidebar.html:26
-#: .\cart_sidebar.html:33 .\products_detail.html:30 .\products_detail.html:32
+#: .\cart_sidebar.html:33 .\products_detail.html:31 .\products_detail.html:33
+#: .\products_detail.html:37
 msgid "$"
 msgstr "تومان"
 
@@ -63,62 +68,59 @@ msgstr "مشاهده سبد خرید"
 msgid "Checkout"
 msgstr "ثبت سفارش"
 
+#: .\contact.html:45 .\products_detail.html:183
+msgid "Send"
+msgstr "ارسال"
+
 #: .\products_detail.html:10
 msgid "Products Detail"
 msgstr "جزییات محصول"
 
-#: .\products_detail.html:44
+#: .\products_detail.html:51
 msgid "Add to cart"
 msgstr "اضافه کردن به سبد خرید"
 
-#: .\products_detail.html:56
-msgid "categories"
-msgstr "دسته بندی ها"
-
-#: .\products_detail.html:67
+#: .\products_detail.html:89
 msgid "product description"
 msgstr "توضیحات محصول"
 
-#: .\products_detail.html:68
+#: .\products_detail.html:90
 msgid "feature"
 msgstr "ویژگی ها"
 
-#: .\products_detail.html:69
+#: .\products_detail.html:91
 msgid "comment"
 msgstr "نظر "
 
-#: .\products_detail.html:84
+#: .\products_detail.html:106
 msgid "weight"
 msgstr "وزن"
 
-#: .\products_detail.html:87
+#: .\products_detail.html:109
 msgid "gr"
 msgstr "گرم"
 
-#: .\products_detail.html:92
+#: .\products_detail.html:114
 msgid "color"
 msgstr "رنگ"
 
-#: .\products_detail.html:105
+#: .\products_detail.html:127
 msgid "comment for"
 msgstr "نظر برای"
 
-#: .\products_detail.html:141
+#: .\products_detail.html:163
 msgid "write you comment"
 msgstr "نظر خود را وارد کنید"
 
-#: .\products_detail.html:154
-
-msgid "your comment"
-msgstr "نظر خود را وارد کنید"
-
-#: .\products_detail.html:161
-msgid "Send"
-msgstr "ارسال"
-
-#: .\products_detail.html:169
+#: .\products_detail.html:191
 msgid "You first Login"
 msgstr "اول وارد شوید!"
+
+#~ msgid "categories"
+#~ msgstr "دسته بندی ها"
+
+#~ msgid "your comment"
+#~ msgstr "نظر خود را وارد کنید"
 
 #~ msgid "Submit"
 #~ msgstr "ارسال"
