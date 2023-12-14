@@ -89,7 +89,10 @@
                   </ul>
                 </li>
                 <li class="header-toolbar__item">
-                  <a href="#searchForm" class="header-toolbar__btn toolbar-btn"><i class="flaticon flaticon-search"></i></a>
+                  <form action="{% url "search" %}" method="get">
+                    <input class="flaticon flaticon-search" type="text" name="q">
+
+                  </form>
                 </li>
               </ul>
             </div>

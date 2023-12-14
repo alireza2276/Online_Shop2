@@ -14,4 +14,5 @@ urlpatterns = [
     path('order/create/', views.order_create, name='order_create'),
     path('likes/<int:pk>/', views.likeview, name='likes' ),
     path('contact/', views.ContactView.as_view(), name='contact'),
+    path('search/', views.search, name='search'),
 ]

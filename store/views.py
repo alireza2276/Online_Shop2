@@ -251,8 +251,10 @@ class ContactView(CreateView):
         return context
     
 
-
-
-
+#seacrh
+def search(request):
+    q = request.GET.get('q')
+    products = Product.objects.filter(title__icontains=q)
+    return render(request, 'products_list.html', {'products': products})
 
 
