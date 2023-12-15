@@ -13,14 +13,24 @@ from .models import Product, Comment, Contact, Category
 from .forms import CommentForm, AddToCartProductForm, ContactForm
 from .models import OrderItem
 from django.urls import reverse, reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 
 
 def home(request):
-    products = Product.objects.all()
+
+    products = Product.objects.all()[:4]
     categories_obj = Category.objects.all()
 
     categories = request.GET.getlist('categories')
+    sort_by = request.GET.get('sort_by')
+
+    if sort_by:
+        if sort_by == 'ASC':
+            products = Product.objects.order_by('price').all()
+
+        elif sort_by == 'DSC':
+            products = Product.objects.order_by('-price').all()
     
 
     if len(categories):
@@ -30,8 +40,18 @@ def home(request):
     return render(request, 'home.html', context={
         'categories_obj': categories_obj,
         'categories': categories,
-        'products': products
+        'products': products,
+        'sort_by': sort_by
     })
+
+
+def category(request, pk=None):
+    categories = get_object_or_404(Category, id=pk)
+    products =  categories.products.all()
+    return render(request, 'products_list.html', {
+        'categories': categories,
+        'products': products,
+        })
 
 
 
@@ -41,18 +61,20 @@ class ProductListView(ListView):
     template_name = 'products_list.html'
     context_object_name = 'products'
 
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        products = Product.objects.all()
-        categories = self.request.GET.getlist('categories')
-        if len(categories):
-            products = Product.objects.filter(category__title__in=categories).distinct()
+
+
+    # def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+    #     context = super().get_context_data(**kwargs)
+    #     products = Product.objects.all()
+    #     categories = self.request.GET.getlist('categories')
+    #     if len(categories):
+    #         products = Product.objects.filter(category__title__in=categories).distinct()
         
 
-        context['products'] = products
-        context['categories_obj'] = Category.objects.all()
+    #     context['products'] = products
+    #     context['categories_obj'] = Category.objects.all()
 
-        return context
+    #     return context
 
     
 

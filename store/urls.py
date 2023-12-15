@@ -15,4 +15,5 @@ urlpatterns = [
     path('likes/<int:pk>/', views.likeview, name='likes' ),
     path('contact/', views.ContactView.as_view(), name='contact'),
     path('search/', views.search, name='search'),
+    path('category/<int:pk>/', views.category, name='category'),
 ]

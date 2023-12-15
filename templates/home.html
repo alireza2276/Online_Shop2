@@ -3,63 +3,83 @@
 
 {% load persian_template_tags %}
 {% load humanize %}
+{% load i18n %}
 
 {% block title %}
-  Home Page
+  {% trans "Home" %}
 {% endblock %}
 
 {% block content %}
-  <h2>HOME PAGE</h2>
-  <form action="">
-    <label for="">Category</label>
-    <select name="categories" class="form-control" multiple>
-      {% for category in categories_obj %}
-      <option {% if category.title in categories %} selected {% endif %} value="{{category.title}}">{{category.title}}</option>
-      {% endfor %}
-    </select>
-    <button style="margin-top: 30px;" type="submit" class="btn btn-success">Find</button>
-  </form>
-  <div>
-    {% for product in products %}
-                      <div class="col-xl-3 col-md-4 col-sm-6 mb--50">
-                        <div class="ShoppingYar-product">
-                          <div class="product-inner">
-                            <figure class="product-image">
-                              <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" alt="Products" /></a>
-                              <div class="ShoppingYar-product-action">
-                                <div class="product-action d-flex">
-                                  <a href="wishlist.html" class="action-btn"><i class="flaticon flaticon-like"></i></a>
-                                </div>
-                              </div>
-                              
-                              
-                            </figure>
-                            <div class="product-info">
-                              <h3 class="product-title h6 mb--15"><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></h3>
-                              {% if product.discount %}
-                                <div class="product-price-wrapper mb--30">
-                                  <span class="money text-success">{{ product.discount|intcomma:False|translate_number }} تومان</span>
-                                  <span class="money-separator">-</span>
-                                  <span class="old-price text-danger"><span class="money text-danger">{{ product.price|intcomma:False|translate_number }} تومان</span></span>
-                                </div>
-                              {% else %}
-                                <div class="product-price-wrapper mb--30">
-                                  <span class="money text-success">{{ product.price|intcomma:False|translate_number }} تومان</span>
-                                </div>
-                              {% endif %}
-
-                              <form action="{% url 'cart_add' product.id %}" method="post">
-                                {% csrf_token %}
-                                {# {{ add_to_cart|crispy }} #}
-                                <input type="hidden" class="quantity-input" name="quantity" id="qty" value="1" min="1" />
-                                <button type="submit" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">'Add To Cart'</button>
-                              </form>
-                              {% comment %} <a href="" class="btn btn-small btn-bg-sand btn-color-dark px-3">اضافه کردن به سبد خرید</a> {% endcomment %}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-  {% endfor %}
+<div class="row mt-3">
+  <div class="col-md-4">
+    <form action="">
+        <div class="col-md-4">
+        <div class="form-inline">
+            <label class="" for="exampleFormControlSelect1"><strong>{% trans "Sort by price" %}:</strong></label>
+            <select class="form-control" name="sort_by" id="exampleFormControlSelect1">
+                <option value="">{% trans "Recommended" %}</option>
+                <option {% if sort_by == 'ASC' %} selected {%endif %} value="ASC">{% trans "ASC" %}</option>
+                <option {% if sort_by == 'DSC' %} selected {%endif %} value="DSC">{% trans "DSC" %}</option>
+               
+            </select>
+        </div>
+        </div>
+        <br>
+      <label for=""><strong>{% trans "Filter the categories" %}:</strong></label>
+      <select name="categories" class="form-control" multiple>
+        {% for category in categories_obj %}
+        <option {% if category.title in categories %} selected {% endif %} value="{{category.title}}">{{category.title}}</option>
+        {% endfor %}
+      </select>
+              <button style="margin-top: 30px;" type="submit" class="btn btn-success">{% trans "Find" %}</button>
+    </form>
+  </div>
 </div>
+  <div class="tab-content" id="product-tab-content">
+    <div class="tab-pane fade show active" id="nav-all">
+      <div class="row xxl-block-grid-6 grid-space-20">
+        {% for product in products %}
+          <div class="col-xl-3 col-md-4 col-sm-6 mb--50">
+            <div class="ShoppingYar-product">
+              <div class="product-inner">
+                <figure class="product-image">
+                  <a href="{{ product.get_absolute_url }}"><img src="{{ product.image.url }}" alt="Products" /></a>
+                  <div class="ShoppingYar-product-action">
+                    <div class="product-action d-flex">
+                      <a href="wishlist.html" class="action-btn"><i class="flaticon flaticon-like"></i></a>
+                    </div>
+                  </div>
+                  
+                  
+                </figure>
+                <div class="product-info">
+                  <h3 class="product-title h6 mb--15"><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></h3>
+                  {% if product.discount %}
+                    <div class="product-price-wrapper mb--30">
+                      <span class="money text-success">{{ product.discount|intcomma:False|translate_number }} {% trans "$" %}</span>
+                      <span class="money-separator">-</span>
+                      <span class="old-price text-danger"><span class="money text-danger">{{ product.price|intcomma:False|translate_number }} {% trans "$" %}</span></span>
+                    </div>
+                  {% else %}
+                    <div class="product-price-wrapper mb--30">
+                      <span class="money text-success">{{ product.price|intcomma:False|translate_number }} {% trans "$" %}</span>
+                    </div>
+                  {% endif %}
+
+                  <form action="{% url 'cart_add' product.id %}" method="post">
+                    {% csrf_token %}
+                    {# {{ add_to_cart|crispy }} #}
+                    <input type="hidden" class="quantity-input" name="quantity" id="qty" value="1" min="1" />
+                    <button type="submit" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">{% trans "Add To Cart" %}</button>
+                  </form>
+                  {% comment %} <a href="" class="btn btn-small btn-bg-sand btn-color-dark px-3">اضافه کردن به سبد خرید</a> {% endcomment %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
   
 {% endblock %}

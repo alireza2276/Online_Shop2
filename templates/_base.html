@@ -49,18 +49,32 @@
                 </div>
                 <div class="mainmenu-nav d-none d-lg-block w-100 pr-3">
                   <ul class="mainmenu d-lg-flex jusity-content-end jusity-content-lg-start pt-4">
-                    <li class="mainmenu__item menu-item-has-children {% if request.resolver_match.url_name == 'products_list' %}active{% endif %} ">
-                      <a href="{% url 'products_list' %}" class="mainmenu__link"><span class="mm-text">خانه</span></a>
+                    <li class="mainmenu__item menu-item-has-children {% if request.resolver_match.url_name == 'home' %}active{% endif %} ">
+                      <a href="{% url 'home' %}" class="mainmenu__link"><span class="mm-text">{% trans "home" %}</span></a>
                     </li>
-                    <li class="mainmenu__item menu-item-has-children">
-                      <a href="Blog.html" class="mainmenu__link"><span class="mm-text">وبلاگ</span></a>
+                    <li class="mainmenu__item {% if request.resolver_match.url_name == 'products_list' %}active{% endif %}">
+                      <a href="{% url "products_list" %}" class="mainmenu__link"><span class="mm-text">{% trans "Products" %}</span></a>
                     </li>
-                    <li class="mainmenu__item menu-item-has-children">
-                      <a href="#" class="mainmenu__link"><span class="mm-text">صفحات</span></a>
-                    </li>
+                    
                     <li class="mainmenu__item {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
                       <a href="{% url "contact" %}" class="mainmenu__link "><span class="mm-text">{% trans "Contact" %}</span></a>
                     </li>
+                    <div class="col-lg-3 d-none d-lg-block">
+                      <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse"
+                         href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
+                          <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>{% trans "Categories" %}</h6>
+                          <i class="fa fa-angle-down text-dark"></i>
+                      </a>
+                      <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light"
+                           id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
+                          <div class="navbar-nav w-100">
+                              {% for cat in category %}
+                                  <a href="{% url 'category' cat.id %}" class="nav-item nav-link">{{ cat.title }}</a>
+                              {% endfor %}
+                          </div>
+                      </nav>
+                    </div>
+                    
                   </ul>
                 </div>
               </nav>
@@ -90,8 +104,7 @@
                 </li>
                 <li class="header-toolbar__item">
                   <form action="{% url "search" %}" method="get">
-                    <input class="flaticon flaticon-search" type="text" name="q">
-
+                    <input class="flaticon flaticon-search" type="text" name="q" placeholder="{% trans "search" %}">
                   </form>
                 </li>
               </ul>

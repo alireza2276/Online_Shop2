@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-11 22:17+0330\n"
+"POT-Creation-Date: 2023-12-15 17:23+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,9 +18,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\_base.html:62
+#: .\_base.html:53
+msgid "home"
+msgstr "خانه"
+
+#: .\_base.html:56
+msgid "Products"
+msgstr "محصولات"
+
+#: .\_base.html:60
 msgid "Contact"
 msgstr "ارتباط با ما"
+
+#: .\_base.html:65
+msgid "Categories"
+msgstr "دسته بندی ها"
+
+#: .\_base.html:107
+msgid "search"
+msgstr "جستجو کنید"
 
 #: .\account\login.html:22 .\account\login.html:49 .\account\signup.html:47
 msgid "Login"
@@ -75,8 +91,10 @@ msgid "total"
 msgstr "مجموع"
 
 #: .\cart_details.html:68 .\cart_details.html:109 .\cart_sidebar.html:26
-#: .\cart_sidebar.html:33 .\products_detail.html:31 .\products_detail.html:33
-#: .\products_detail.html:37
+#: .\cart_sidebar.html:33 .\home.html:58 .\home.html:60 .\home.html:64
+#: .\products_detail.html:31 .\products_detail.html:33
+#: .\products_detail.html:37 .\products_list.html:66 .\products_list.html:68
+#: .\products_list.html:72
 msgid "$"
 msgstr "تومان"
 
@@ -103,6 +121,39 @@ msgstr "ثبت سفارش"
 #: .\contact.html:45 .\products_detail.html:183
 msgid "Send"
 msgstr "ارسال"
+
+#: .\home.html:9
+msgid "Home"
+msgstr "خانه"
+
+#: .\home.html:18
+msgid "Sort by price"
+msgstr "فیلتر بر اساس قیمت"
+
+#: .\home.html:20
+
+msgid "Recommended"
+msgstr "پیش فرض"
+
+#: .\home.html:21
+msgid "ASC"
+msgstr "صعودی"
+
+#: .\home.html:22
+msgid "DSC"
+msgstr "نزولی"
+
+#: .\home.html:27
+msgid "Filter the categories"
+msgstr "فیلتر کردن بر اساس طبقه بندی"
+
+#: .\home.html:33
+msgid "Find"
+msgstr "پیدا کن"
+
+#: .\home.html:72 .\products_list.html:80
+msgid "Add To Cart"
+msgstr "اضافه کردن به سبد خرید"
 
 #: .\products_detail.html:10
 msgid "Products Detail"
@@ -147,9 +198,6 @@ msgstr "نظر خود را وارد کنید"
 #: .\products_detail.html:191
 msgid "You first Login"
 msgstr "اول وارد شوید!"
-
-#~ msgid "categories"
-#~ msgstr "دسته بندی ها"
 
 #~ msgid "your comment"
 #~ msgstr "نظر خود را وارد کنید"
