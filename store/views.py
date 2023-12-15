@@ -9,15 +9,30 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from .models import Product, Comment, Contact
+from .models import Product, Comment, Contact, Category
 from .forms import CommentForm, AddToCartProductForm, ContactForm
 from .models import OrderItem
 from django.urls import reverse, reverse_lazy
 
 
 
-class HomeView(TemplateView):
-    template_name = 'home.html'
+def home(request):
+    products = Product.objects.all()
+    categories_obj = Category.objects.all()
+
+    categories = request.GET.getlist('categories')
+    
+
+    if len(categories):
+        products = Product.objects.filter(category__title__in=categories).distinct()
+
+    
+    return render(request, 'home.html', context={
+        'categories_obj': categories_obj,
+        'categories': categories,
+        'products': products
+    })
+
 
 
 class ProductListView(ListView):
@@ -25,6 +40,21 @@ class ProductListView(ListView):
     paginate_by = 5
     template_name = 'products_list.html'
     context_object_name = 'products'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        products = Product.objects.all()
+        categories = self.request.GET.getlist('categories')
+        if len(categories):
+            products = Product.objects.filter(category__title__in=categories).distinct()
+        
+
+        context['products'] = products
+        context['categories_obj'] = Category.objects.all()
+
+        return context
+
+    
 
 
 
