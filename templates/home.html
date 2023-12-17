@@ -31,6 +31,7 @@
         <option {% if category.title in categories %} selected {% endif %} value="{{category.title}}">{{category.title}}</option>
         {% endfor %}
       </select>
+      <br>
       <label for=""><strong>{% trans "Filter By Price" %}:</strong></label>
       <select name="period_prices" class="form-control" multiple>
         {% for period_price in period_prices_obj %}

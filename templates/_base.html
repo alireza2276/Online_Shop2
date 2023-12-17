@@ -93,11 +93,11 @@
                   <ul class="user-info-menu">
                     {% if user.is_authenticated %}
                       <li>
-                        <a class="text-right" href="{% url 'account_logout' %}">Log Out</a>
+                        <a class="text-right" href="{% url 'account_logout' %}">{% trans "Log Out" %}</a>
                       </li>
                     {% else %}
                       <li>
-                        <a class="text-right" href="{% url 'account_login' %}">Log in/Sign Up</a>
+                        <a class="text-right" href="{% url 'account_login' %}">{% trans "Log in/Sign Up" %}</a>
                       </li>
                     {% endif %}
                   </ul>
@@ -146,13 +146,11 @@
               <div class="footer-widget mb--50 pb--1">
                 <ul class="footer-menu">
                   <li>
-                    <a href="">درباره ما</a>
+                    <a href="">{% trans "about us" %}</a>
                   </li>
+                  
                   <li>
-                    <a href="">قوانین و مقررات</a>
-                  </li>
-                  <li>
-                    <a href="">تماس با ما</a>
+                    <a href="{% url "contact" %}">{% trans "contact us" %}</a>
                   </li>
                 </ul>
               </div>

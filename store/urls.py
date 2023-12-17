@@ -16,4 +16,7 @@ urlpatterns = [
     path('contact/', views.ContactView.as_view(), name='contact'),
     path('search/', views.search, name='search'),
     path('category/<int:pk>/', views.category, name='category'),
+    path('compare/', views.compare_detail, name='compare_detail'),
+    path('add/compare/<int:product_id>/', views.add_to_compare, name='compare_add'),
+    path('remove/compare/<int:product_id>/', views.remove_from_compare, name='compare_remove'),
 ]

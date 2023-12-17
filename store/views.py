@@ -14,6 +14,7 @@ from .forms import CommentForm, AddToCartProductForm, ContactForm
 from .models import OrderItem
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from .compare import Compare
 
 
 
@@ -319,3 +320,27 @@ def search(request):
     return render(request, 'products_list.html', {'products': products})
 
 
+# compare
+
+def compare_detail(request):
+    compare = Compare(request)
+        
+
+    return render(request, 'compare_detail.html', context={'compare': compare})
+
+@login_required
+def add_to_compare(request, product_id):
+    cart = Compare(request)
+    product = get_object_or_404(Product, id=product_id)
+
+    cart.add(product)
+
+    return redirect('compare_detail')
+
+def remove_from_compare(request, product_id):
+    cart = Compare(request)
+    product = get_object_or_404(Product, id=product_id)
+
+    cart.remove(product)
+
+    return redirect('compare_detail')

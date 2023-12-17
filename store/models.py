@@ -45,6 +45,9 @@ class Product(models.Model):
     status = models.BooleanField(default=True)
     weight = models.IntegerField()
     color = models.CharField(max_length=255, choices=COLOR_CHOICES, default='black')
+    ram = models.CharField(max_length=100, blank=True)
+    simcard = models.CharField(max_length=100, blank=True)
+    operating_system = models.CharField(max_length=100, blank=True)
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='user_likes', blank=True)
 
 
@@ -128,10 +131,10 @@ class OrderItem(models.Model):
 
 # contact us
 class Contact(models.Model):
-    full_name = models.CharField(max_length=255)
-    email = models.EmailField()
-    address = models.CharField(max_length=255)
-    body = models.TextField()
+    full_name = models.CharField(_('full_name'), max_length=255)
+    email = models.EmailField(_('email'))
+    address = models.CharField(_('address'), max_length=255)
+    body = models.TextField(_('body'))
 
     datetime_created = models.DateTimeField(auto_now_add=True)
 
