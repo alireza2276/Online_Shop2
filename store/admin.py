@@ -1,6 +1,6 @@
 from django.contrib import admin
 from jalali_date.admin import ModelAdminJalaliMixin
-from .models import Product, Category, Customer, Comment, Order, OrderItem, Contact, Information
+from .models import Product, Category, Customer, Comment, Order, OrderItem, Contact, Information, PeriodPrice
 
 
 
@@ -11,6 +11,11 @@ class ProductAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['title']
+
+
+@admin.register(PeriodPrice)
+class PeriodPriceAdmin(admin.ModelAdmin):
     list_display = ['title']
 
 

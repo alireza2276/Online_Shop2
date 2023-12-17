@@ -15,7 +15,13 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+    
 
+class PeriodPrice(models.Model):
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
 
 
 class Product(models.Model):
@@ -29,6 +35,7 @@ class Product(models.Model):
     ]
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    period_price = models.ForeignKey(PeriodPrice, on_delete=models.CASCADE, related_name='period_price', null=True, blank=True)
     title = models.CharField(max_length=255)
     description = RichTextField()
     short_description = models.TextField(blank=True)
@@ -38,7 +45,7 @@ class Product(models.Model):
     status = models.BooleanField(default=True)
     weight = models.IntegerField()
     color = models.CharField(max_length=255, choices=COLOR_CHOICES, default='black')
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='user_likes')
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='user_likes', blank=True)
 
 
     datetime_created = models.DateTimeField(default=timezone.now)

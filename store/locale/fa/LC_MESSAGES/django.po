@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-10 22:03+0330\n"
+"POT-Creation-Date: 2023-12-17 10:32+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,30 @@ msgstr "قرمز"
 msgid "PINK"
 msgstr "صورتی"
 
-#: .\models.py:75
+#: .\models.py:78
 msgid "body"
 msgstr "متن شما"
+
+#: .\views.py:117
+msgid "Your comment successfully added"
+msgstr "نظر شما با موفقیت اضافه شد"
+
+#: .\views.py:142
+msgid "Product successfully added"
+msgstr "محصول شما با موفیت اضافه شد"
+
+#: .\views.py:152
+msgid "Product successfully removed from cart"
+msgstr "محصول شما با موفقیت از سبد خرید حذف شد."
+
+#: .\views.py:227
+msgid "Your cart successfully removed from your cart"
+msgstr "سبد خرید شما با موفقیت خالی شد."
+
+#: .\views.py:230
+msgid "Your cart is empty"
+msgstr "سبد خرید شما خالی است"
+
+#: .\views.py:240
+msgid "You can not proceed, because your cart is empty!"
+msgstr "شما نمیتوانید سفارشی ثبت کنید!چون سبد خرید شما خالی است."

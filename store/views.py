@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from .models import Product, Comment, Contact, Category
+from .models import Product, Comment, Contact, Category, PeriodPrice
 from .forms import CommentForm, AddToCartProductForm, ContactForm
 from .models import OrderItem
 from django.urls import reverse, reverse_lazy
@@ -21,8 +21,11 @@ def home(request):
 
     products = Product.objects.all()[:4]
     categories_obj = Category.objects.all()
+    period_prices_obj = PeriodPrice.objects.all()
+
 
     categories = request.GET.getlist('categories')
+    period_prices = request.GET.getlist('period_prices')
     sort_by = request.GET.get('sort_by')
 
     if sort_by:
@@ -37,11 +40,17 @@ def home(request):
         products = Product.objects.filter(category__title__in=categories).distinct()
 
     
+    if len(period_prices):
+        products = Product.objects.filter(period_price__title__in=period_prices).distinct()
+
+    
     return render(request, 'home.html', context={
         'categories_obj': categories_obj,
         'categories': categories,
         'products': products,
-        'sort_by': sort_by
+        'sort_by': sort_by,
+        'period_prices_obj': period_prices_obj,
+        'period_prices': period_prices,
     })
 
 
@@ -114,7 +123,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         product_id = int(self.kwargs['product_id'])
         product = get_object_or_404(Product, id=product_id)
         obj.product = product
-        messages.success(self.request, 'Your comment successfully added')
+        messages.success(self.request, _('Your comment successfully added'))
 
         return super().form_valid(form)
         
@@ -139,7 +148,7 @@ class Cart:
         else:
             self.cart[product_id]['quantity'] += quantity
         
-        messages.success(self.request, 'Product successfully added')
+        messages.success(self.request, _('Product successfully added'))
 
         self.save()
 
@@ -149,7 +158,7 @@ class Cart:
         if product_id in self.cart:
             del self.cart[product_id]
 
-        messages.success(self.request, 'Product successfully removed from cart')
+        messages.success(self.request, _('Product successfully removed from cart'))
         self.save()
 
     
@@ -224,10 +233,10 @@ def clear_cart(request):
 
     if len(cart):
         cart.clear()
-        messages.success(request, 'Your cart successfully removed from your cart')
+        messages.success(request, _('Your cart successfully removed from your cart'))
 
     else:
-        messages.warning(request, 'Your cart is empty')
+        messages.warning(request, _('Your cart is empty'))
 
     return redirect('products_list')
 
@@ -237,7 +246,7 @@ def order_create(request):
     cart = Cart(request)
 
     if len(cart)  == 0:
-        messages.warning(request, 'You can not proceed, because your cart is empty!')
+        messages.warning(request, _('You can not proceed, because your cart is empty!'))
         return redirect('products_list')
 
     if request.method == 'POST':
