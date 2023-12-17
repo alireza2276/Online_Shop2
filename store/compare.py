@@ -1,6 +1,7 @@
 from django.contrib import messages
 from .models import Product
 from django.shortcuts import render, redirect, get_object_or_404
+import copy
 
 
 
@@ -25,6 +26,8 @@ class Compare:
         if product_id not in self.compare:
 
             self.compare[product_id] = {'quantity': quantity}
+        
+
 
         messages.success(self.request, 'Product added to compare')
 
@@ -54,11 +57,15 @@ class Compare:
         compare = self.compare.copy()
 
         for product in products:
-            compare[str(product.id)]['product_objs'] = product
+            compare[str(product.id)]['product_obj'] = product
+
 
         for item in compare.values():
-            item['total_price'] = item['product_objs'].price * item['quantity']
+            item['total_price'] = item['product_obj'].price * item['quantity']
             yield item
+
+        
+    
     
 
 

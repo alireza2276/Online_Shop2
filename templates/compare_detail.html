@@ -13,17 +13,15 @@
     <div class="tab-pane text-right" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
       <div class="table-content table-responsive">
         <table class="table shop_attributes">
-          {% for items in compare %}
+          {% for item in compare %}
             <tbody>
-                
-                
               <tr>
                 <th>
                   {% trans 'title' %}
                 </th>
                 <td>
-                  {{ items.product_objs.title }}  <td class="product-thumbnail text-left">
-                    <img src="{{ items.product_objs.image.url }}" alt="Product Thumnail" />
+                  {{ item.product_obj.title }}  <td class="product-thumbnail text-left">
+                    <img src="{{ item.product_obj.image.url }}" alt="Product Thumnail" />
                   </td>
                 </td>
               </tr>
@@ -32,7 +30,7 @@
                   {% trans 'weight' %}
                 </th>
                 <td>
-                  {{ items.product_objs.weight }} {% trans 'gr' %}
+                  {{ item.product_obj.weight }} {% trans 'gr' %}
                 </td>
               </tr>
               <tr>
@@ -40,7 +38,7 @@
                   {% trans 'color' %}
                 </th>
                 <td>
-                  <a href="shop-sidebar.html">{{ items.product_objs.color }}</a>
+                  <a href="shop-sidebar.html">{{ item.product_obj.color }}</a>
                 </td>
               </tr>
               <tr>
@@ -48,7 +46,7 @@
                   {% trans 'ram' %}
                 </th>
                 <td>
-                  <a href="shop-sidebar.html">{{ items.product_objs.ram }}</a>
+                  <a href="shop-sidebar.html">{{ item.product_obj.ram }}</a>
                 </td>
               </tr>
               <tr>
@@ -56,7 +54,7 @@
                   {% trans 'simcard' %}
                 </th>
                 <td>
-                  <a href="shop-sidebar.html">{{ items.product_objs.simcard }}</a>
+                  <a href="shop-sidebar.html">{{ item.product_obj.simcard }}</a>
                 </td>
               </tr>
               <tr>
@@ -64,7 +62,7 @@
                   {% trans 'operating system' %}
                 </th>
                 <td>
-                  <a href="shop-sidebar.html">{{ items.product_objs.operating_system }}</a>
+                  <a href="shop-sidebar.html">{{ item.product_obj.operating_system }}</a>
                 </td>
               </tr>
               <tr>
@@ -72,7 +70,7 @@
                   {% trans 'price' %}
                 </th>
                 <td>
-                  <a href="shop-sidebar.html">{{ items.product_objs.price|intcomma:False|translate_number}}</a>
+                  <a href="shop-sidebar.html">{{ item.product_obj.price|intcomma:False|translate_number}}</a>
                 </td>
               </tr>
             </tbody>

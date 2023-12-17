@@ -70,7 +70,6 @@
                               <form action="{% url 'compare_add' product.id %}" method="post">
                                 {% csrf_token %}
                                 {# {{ add_to_cart|crispy }} #}
-                                
                                 <button type="submit" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">{% trans "Add To Compare" %}</button>
                               </form>
                               {% comment %} <a href="" class="btn btn-small btn-bg-sand btn-color-dark px-3">اضافه کردن به سبد خرید</a> {% endcomment %}

@@ -218,3 +218,6 @@ LANGUAGES = (
 LOCALE_PATHS = [
     os.path.join(str(BASE_DIR.joinpath('templates')), 'locale')
 ]
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
