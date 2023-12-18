@@ -5,6 +5,7 @@ from django.shortcuts import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from ckeditor.fields import RichTextField
+from django.core.validators import MinValueValidator
 
 
 
@@ -43,7 +44,7 @@ class Product(models.Model):
     discount = models.PositiveIntegerField(blank=True, null=True)
     image = models.ImageField(upload_to='static/product_cover', blank=True)
     status = models.BooleanField(default=True)
-    weight = models.IntegerField()
+    weight = models.IntegerField(validators=[MinValueValidator(1)])
     color = models.CharField(max_length=255, choices=COLOR_CHOICES, default='black')
     ram = models.CharField(max_length=100, blank=True)
     simcard = models.CharField(max_length=100, blank=True)
@@ -70,6 +71,9 @@ class Customer(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     phone_number = models.CharField(max_length=255)
     birth_date = models.DateField(null=True, blank=True)
+
+    def __str__(self) -> str:
+        return f"{self.user}"
 
     
 

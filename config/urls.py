@@ -19,6 +19,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 
+
+admin.site.header = 'Mobile Store'
+admin.site.index_title = 'Managemant Product'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),

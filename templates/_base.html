@@ -41,10 +41,8 @@
             <div class="col-xl-9 col-lg-8 col-5 col-xs-0 col-none col-sm-block p-0">
               <nav class="main-navigation">
                 <div class="site-branding" style="margin-right: 30px;">
-                  <a href="index.html" class="logo">
-                    <figure class="logo--normal d-none d-sm-block">
-                      <img class="px-5" src="{% static 'img/codingyar_logo.png' %}" style="max-height: 50px; margin-bottom: -15px;" alt="Logo" />
-                    </figure>
+                  <a href="{% url "home" %}" class="logo">
+                    <h3>MobileStore</h3>
                   </a>
                 </div>
                 <div class="mainmenu-nav d-none d-lg-block w-100 pr-3">
@@ -154,7 +152,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="footer-widget">Codingyar.com © | all rights reserved</div>
+              <div class="footer-widget">Alireza KhatiriFar © | all rights reserved</div>
             </div>
           </div>
         </div>

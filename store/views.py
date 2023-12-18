@@ -205,7 +205,7 @@ def cart_detail_view(request):
     return render(request, 'cart_details.html', {'cart': cart})
 
 
-@login_required
+
 def add_to_cart_ciew(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
@@ -228,7 +228,7 @@ def remove_from_cart(request, product_id):
     return redirect('cart_details')
 
 
-@require_POST
+
 def clear_cart(request):
     cart = Cart(request)
 
@@ -241,7 +241,6 @@ def clear_cart(request):
 
     return redirect('products_list')
 
-@login_required
 def order_create(request):
     order_form = OrderForm()
     cart = Cart(request)
@@ -328,7 +327,8 @@ def compare_detail(request):
 
     return render(request, 'compare_detail.html', context={'compare': compare})
 
-@login_required
+
+
 def add_to_compare(request, product_id):
     cart = Compare(request)
     product = get_object_or_404(Product, id=product_id)
