@@ -6,7 +6,7 @@
 {% load i18n %}
 
 {% block title %}
-  Contact
+  {% trans "Contact" %}
 {% endblock %}
 
 {% block content %}
@@ -16,7 +16,7 @@
       <div class="container">
         <div class="row pb--80">
           <div class="col-md-7 mb-sm--30">
-            <h2 class="heading__secondary mb--50 mb-md--35 mb-sm--20">پیام خود را به ما بگویید</h2>
+            <h2 class="heading__secondary mb--50 mb-md--35 mb-sm--20">{% trans "Say us your messages" %}</h2>
 
             <!-- Contact form Start Here -->
             {% comment %} <form class="form" action="mail.php" id="contact-form">
@@ -46,12 +46,12 @@
             </form>
           </div>
           <div class="col-md-5 pl--50 pl-sm--30">
-            <h2 class="heading__secondary mb--50">اطلاعات تماس</h2>
+            <h2 class="heading__secondary mb--50">{% trans "contact information" %}</h2>
 
             <!-- Contact info widget start here -->
             <div class="contact-info-widget mb--45">
               <div class="contact-info">
-                <h3 class="heading__tertiary">آدرس پستی</h3>
+                <h3 class="heading__tertiary">{% trans "address" %}</h3>
                 <p>{{ information.address }}</p>
               </div>
             </div>
@@ -64,11 +64,11 @@
             <!-- Contact info widget start here -->
             <div class="contact-info-widget two-column-list sm-one-column mb--45">
               <div class="contact-info mb-sm--35">
-                <h3 class="heading__tertiary">شماره تماس</h3>
+                <h3 class="heading__tertiary">{% trans "phone number" %}</h3>
                 <a href="">{{ information.phone_number }}</a>
               </div>
               <div class="contact-info">
-                <h3 class="heading__tertiary">ایمیل</h3>
+                <h3 class="heading__tertiary">{% trans "email" %}</h3>
                 <a href="mailto:info@la-studioweb.com">{{ information.email }}</a>
               </div>
             </div>

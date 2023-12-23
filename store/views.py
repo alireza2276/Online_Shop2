@@ -9,12 +9,12 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from .models import Product, Comment, Contact, Category, PeriodPrice
+from .models import Product, Comment, Contact, Category
 from .forms import CommentForm, AddToCartProductForm, ContactForm
 from .models import OrderItem
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from .compare import Compare
+# from .compare import Compare
 
 
 
@@ -22,36 +22,12 @@ def home(request):
 
     products = Product.objects.all()[:4]
     categories_obj = Category.objects.all()
-    period_prices_obj = PeriodPrice.objects.all()
-
-
-    categories = request.GET.getlist('categories')
-    period_prices = request.GET.getlist('period_prices')
-    sort_by = request.GET.get('sort_by')
-
-    if sort_by:
-        if sort_by == 'ASC':
-            products = Product.objects.order_by('price').all()
-
-        elif sort_by == 'DSC':
-            products = Product.objects.order_by('-price').all()
-    
-
-    if len(categories):
-        products = Product.objects.filter(category__title__in=categories).distinct()
-
-    
-    if len(period_prices):
-        products = Product.objects.filter(period_price__title__in=period_prices).distinct()
 
     
     return render(request, 'home.html', context={
         'categories_obj': categories_obj,
-        'categories': categories,
         'products': products,
-        'sort_by': sort_by,
-        'period_prices_obj': period_prices_obj,
-        'period_prices': period_prices,
+        
     })
 
 
@@ -73,20 +49,24 @@ class ProductListView(ListView):
 
 
 
-    # def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-    #     context = super().get_context_data(**kwargs)
-    #     products = Product.objects.all()
-    #     categories = self.request.GET.getlist('categories')
-    #     if len(categories):
-    #         products = Product.objects.filter(category__title__in=categories).distinct()
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         
 
-    #     context['products'] = products
-    #     context['categories_obj'] = Category.objects.all()
+        request = self.request
 
-    #     return context
+        colors = request.GET.getlist('color')
+        categories = request.GET.getlist('category')
+        products = Product.objects.all()
 
-    
+        if colors:
+            products = products.filter(color__title__in=colors).distinct()
+
+        if categories:
+            products = products.filter(category__title__in=categories).distinct()
+
+        context =  super().get_context_data(**kwargs)
+        context['products'] = products
+        return context
 
 
 
@@ -321,26 +301,26 @@ def search(request):
 
 # compare
 
-def compare_detail(request):
-    compare = Compare(request)
+# def compare_detail(request):
+#     compare = Compare(request)
         
 
-    return render(request, 'compare_detail.html', context={'compare': compare})
+#     return render(request, 'compare_detail.html', context={'compare': compare})
 
 
 
-def add_to_compare(request, product_id):
-    cart = Compare(request)
-    product = get_object_or_404(Product, id=product_id)
+# def add_to_compare(request, product_id):
+#     cart = Compare(request)
+#     product = get_object_or_404(Product, id=product_id)
 
-    cart.add(product)
+#     cart.add(product)
 
-    return redirect('compare_detail')
+#     return redirect('compare_detail')
 
-def remove_from_compare(request, product_id):
-    cart = Compare(request)
-    product = get_object_or_404(Product, id=product_id)
+# def remove_from_compare(request, product_id):
+#     cart = Compare(request)
+#     product = get_object_or_404(Product, id=product_id)
 
-    cart.remove(product)
+#     cart.remove(product)
 
-    return redirect('compare_detail')
+#     return redirect('compare_detail')

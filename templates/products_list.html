@@ -5,10 +5,94 @@
 {% load i18n %}
 
 {% block title %}
-  Product_list
+  {% trans 'Product_list' %}
 {% endblock %}
 
 {% block content %}
+  <!-- Shop Sidebar Start -->
+
+  <div class="col-lg-3 col-md-4">
+    <form>
+      <!-- Price Start -->
+      <h5 class="section-title position-relative text-uppercase mb-3"><span >{% trans "Filter by Category" %}:</span></h5>
+      <div class="bg-light p-4 mb-30">
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <input type="checkbox" name="category" value="{% trans 'iphone' %}" class="custom-control-input" id="price-2" />
+          <label class="custom-control-label" for="price-2">{% trans 'iphone' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <input type="checkbox" name="category" value="{% trans "samsung" %}" class="custom-control-input" id="price-3" />
+          <label class="custom-control-label" for="price-3">{% trans "samsung" %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <input type="checkbox" name="category" value="{% trans 'huawei' %}" class="custom-control-input" id="price-4" />
+          <label class="custom-control-label" for="price-4">{% trans 'huawei' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+          <input type="checkbox" name="category" value="{% trans 'Gplus' %}" class="custom-control-input" id="price-5" />
+          <label class="custom-control-label" for="price-5">{% trans 'Gplus' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+          <input type="checkbox" name="category" value="shiaomi" class="custom-control-input" id="price-6" />
+          <label class="custom-control-label" for="price-6">{% trans 'shiaomi' %}</label>
+        </div>
+      </div>
+      <br>
+      <!-- Price End -->
+
+      <!-- Color Start -->
+      <h5 class="section-title position-relative text-uppercase mb-3"><span>{% trans "Filter by color" %}:</span></h5>
+      <div class="bg-light p-4 mb-30">
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <input type="checkbox" name="color" value="{% trans 'Black' %}" class="custom-control-input" id="color-1" />
+          <label class="custom-control-label" for="color-1">{% trans 'Black' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <input type="checkbox" name="color" value="{% trans 'White' %}" class="custom-control-input" id="color-2" />
+          <label class="custom-control-label" for="color-2">{% trans 'White' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <input type="checkbox" name="color" value="{% trans 'Red' %}" class="custom-control-input" id="color-3" />
+          <label class="custom-control-label" for="color-3">{% trans 'Red' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <input type="checkbox" name="color" value="{% trans 'Blue' %}" class="custom-control-input" id="color-4" />
+          <label class="custom-control-label" for="color-4">{% trans 'Blue' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+          <input type="checkbox" name="color" value="{% trans 'Green' %}" class="custom-control-input" id="color-5" />
+          <label class="custom-control-label" for="color-5">{% trans 'Green' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <input type="checkbox" name="color" value="{% trans 'Pink' %}" class="custom-control-input" id="color-6" />
+          <label class="custom-control-label" for="color-6">{% trans 'Pink' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <input type="checkbox" name="color" value="{% trans 'Gold' %}" class="custom-control-input" id="color-7" />
+          <label class="custom-control-label" for="color-7">{% trans 'Gold' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <input type="checkbox" name="color" value="{% trans 'Silver' %}" class="custom-control-input" id="color-8" />
+          <label class="custom-control-label" for="color-8">{% trans 'Silver' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+          <input type="checkbox" name="color" value="{% trans 'pistachio nut' %}" class="custom-control-input" id="color-9" />
+          <label class="custom-control-label" for="color-9">{% trans 'pistachio nut' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+          <input type="checkbox" name="color" value="{% trans 'Purple' %}" class="custom-control-input" id="color-10" />
+          <label class="custom-control-label" for="color-10">{% trans 'Purple' %}</label>
+        </div>
+        <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+          <input type="checkbox" name="color" value="{% trans 'Brown' %}" class="custom-control-input" id="color-11" />
+          <label class="custom-control-label" for="color-11">{% trans 'Brown' %}</label>
+        </div>
+      </div>
+      <input type="submit" value="{% trans 'Filter' %}" />
+    </form>
+    <!-- Color End -->
+  </div>
+  <!-- Shop Sidebar End -->
 
   <div>
     <!-- Main Content Wrapper Start -->
@@ -44,20 +128,18 @@
                                   <a href="wishlist.html" class="action-btn"><i class="flaticon flaticon-like"></i></a>
                                 </div>
                               </div>
-                              
-                              
                             </figure>
                             <div class="product-info">
                               <h3 class="product-title h6 mb--15"><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></h3>
                               {% if product.discount %}
                                 <div class="product-price-wrapper mb--30">
-                                  <span class="money text-success">{{ product.discount|intcomma:False|translate_number }} {% trans "$" %}</span>
+                                  <span class="money text-success">{{ product.discount|intcomma:False|translate_number }} {% trans '$' %}</span>
                                   <span class="money-separator">-</span>
-                                  <span class="old-price text-danger"><span class="money text-danger">{{ product.price|intcomma:False|translate_number }} {% trans "$" %}</span></span>
+                                  <span class="old-price text-danger"><span class="money text-danger">{{ product.price|intcomma:False|translate_number }} {% trans '$' %}</span></span>
                                 </div>
                               {% else %}
                                 <div class="product-price-wrapper mb--30">
-                                  <span class="money text-success">{{ product.price|intcomma:False|translate_number }} {% trans "$" %}</span>
+                                  <span class="money text-success">{{ product.price|intcomma:False|translate_number }} {% trans '$' %}</span>
                                 </div>
                               {% endif %}
 
@@ -65,13 +147,13 @@
                                 {% csrf_token %}
                                 {# {{ add_to_cart|crispy }} #}
                                 <input type="hidden" class="quantity-input" name="quantity" id="qty" value="1" min="1" />
-                                <button type="submit" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">{% trans "Add To Cart" %}</button>
+                                <button type="submit" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">{% trans 'Add To Cart' %}</button>
                               </form>
-                              <form action="{% url 'compare_add' product.id %}" method="post">
+                              {% comment %} <form action="{% url 'compare_add' product.id %}" method="post">
                                 {% csrf_token %}
                                 {# {{ add_to_cart|crispy }} #}
-                                <button type="submit" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">{% trans "Add To Compare" %}</button>
-                              </form>
+                                <button type="submit" class="btn btn-small btn-bg-red btn-color-white btn-hover-2">{% trans 'Add To Compare' %}</button>
+                              </form> {% endcomment %}
                               {% comment %} <a href="" class="btn btn-small btn-bg-sand btn-color-dark px-3">اضافه کردن به سبد خرید</a> {% endcomment %}
                             </div>
                           </div>

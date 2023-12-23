@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http.request import HttpRequest
 from jalali_date.admin import ModelAdminJalaliMixin
-from .models import Product, Category, Customer, Comment, Order, OrderItem, Contact, Information, PeriodPrice
+from .models import Product, Category, Customer, Comment, Order, OrderItem, Contact, Information, Color
 from django.db.models import Count
 from django.utils.html import format_html
 from django.utils.http import urlencode
@@ -52,9 +52,8 @@ class ProductAdmin(ModelAdminJalaliMixin, admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['title']
 
-
-@admin.register(PeriodPrice)
-class PeriodPriceAdmin(admin.ModelAdmin):
+@admin.register(Color)
+class ColorAdmin(admin.ModelAdmin):
     list_display = ['title']
 
 

@@ -1,9 +1,10 @@
 {% extends '_base.html' %}
 {% load humanize %}
 {% load persian_template_tags %}
+{% load i18n %}
 
 {% block title %}
-  Order_create
+  {% trans "Order" %}
 {% endblock %}
 
 {% block content %}
@@ -17,7 +18,7 @@
           <!-- Checkout Area Start -->
           <div class="col-lg-6">
             <div class="checkout-title mt--10">
-              <h2>جزئیات سفارش</h2>
+              <h2>{% trans "product detail" %}</h2>
             </div>
 
             <div class="checkout-form">
@@ -29,48 +30,53 @@
 
                 <div class="form-row mb--20">
                   <div class="form__group col-md-6 mb-sm--30">
-                    <label for="billing_fname" class="form__label form__label--2">نام <span class="required">*</span></label>
+                    <label for="billing_fname" class="form__label form__label--2">{% trans "firstname" %}<span class="required">*</span></label>
                     <input type="text" name="first_name" id="billing_fname" class="form__input form__input--2" />
                   </div>
                   <div class="form__group col-md-6">
-                    <label for="billing_lname" class="form__label form__label--2">نام خانوادگی <span class="required">*</span></label>
+                    <label for="billing_lname" class="form__label form__label--2">{% trans "lastname" %}<span class="required">*</span></label>
                     <input type="text" name="last_name" id="billing_lname" class="form__input form__input--2" />
                   </div>
                 </div>
                 <div class="form-row mb--20">
                   <div class="form__group col-12">
-                    <label for="billing_company" class="form__label form__label--2">آدرس</label>
+                    <label for="billing_company" class="form__label form__label--2">{% trans "address" %}</label>
                     <input type="text" name="address" id="billing_company" class="form__input form__input--2" />
                   </div>
                 </div>
                 <div class="form-row mb--20">
                   <div class="form__group col-12">
-                    <label for="billing_phone" class="form__label form__label--2">شماره همراه <span class="required">*</span></label>
+                    <label for="billing_phone" class="form__label form__label--2">{% trans "phone_number" %}<span class="required">*</span></label>
                     <input type="text" name="phone_Number" id="billing_phone" class="form__input form__input--2" />
                   </div>
                 </div>
 
                 <div class="form-row">
                   <div class="form__group col-12">
-                    <label for="orderNotes" class="form__label form__label--2">یادداشت شما</label>
-                    <textarea class="form__input form__input--2 form__input--textarea" id="orderNotes" name="order_notes" placeholder="اگر یادداشتی دارید در اینجا وارد کنید. در غیر این صورت این مکان را خالی بگذارید"></textarea>
+                    <label for="orderNotes" class="form__label form__label--2">{% trans "your notes" %}</label>
+                    <textarea class="form__input form__input--2 form__input--textarea" id="orderNotes" name="order_notes" placeholder="{% trans "If you have some notes please write here.Otherwise insert empty" %}"></textarea>
                   </div>
                 </div>
-                <button class="btn" type="submit">Send</button>
+                {% if user.is_authenticated %}
+                  <button class="btn" type="submit">{% trans "Send" %}</button>
+                  {% else %}
+                  <h3>{% trans "You must first login" %}</h3>
+                  <a class="btn btn-primary" href="{% url "account_login" %}">{% trans "Login" %}</a>
+                {% endif %}
               </form>
             </div>
           </div>
           <div class="col-xl-5 offset-xl-1 col-lg-6 mt-md--40">
             <div class="order-details">
               <div class="checkout-title mt--10">
-                <h2>سفارش شما</h2>
+                <h2>{% trans "your order" %}</h2>
               </div>
               <div class="table-content table-responsive mb--30">
                 <table class="table order-table order-table-2">
                   <thead>
                     <tr>
-                      <th>محصول</th>
-                      <th class="text-right">قیمت نهایی</th>
+                      <th>{% trans "product" %}</th>
+                      <th class="text-right">{% trans "total_price" %}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -80,25 +86,25 @@
                           {{ item.product_obj.title }}
                           <strong><span>&#10005;</span>{{ item.quantity|translate_number }}</strong>
                         </th>
-                        <td class="text-right">{{ item.product_obj.price|intcomma:False|translate_number }} تومان</td>
+                        <td class="text-right">{{ item.product_obj.price|intcomma:False|translate_number }} {% trans "$" %}</td>
                       </tr>
                     {% endfor %}
                   </tbody>
                   <tfoot>
                     <tr class="cart-subtotal">
-                      <th>مجموع</th>
-                      <td class="text-right">{{ cart.get_total_price|intcomma:False|translate_number }} تومان</td>
+                      <th>{% trans "total" %}</th>
+                      <td class="text-right">{{ cart.get_total_price|intcomma:False|translate_number }} {% trans "$" %}</td>
                     </tr>
                   </tfoot>
                 </table>
               </div>
               <div class="checkout-payment">
-                <h2 class="py-5">روش پرداخت</h2>
+                <h2 class="py-5">{% trans "payment way" %}</h2>
                 <form action="#" class="payment-form">
                   <div class="payment-group mb--10">
                     <div class="payment-radio">
                       <input type="radio" value="bank" name="payment-method" id="bank" checked />
-                      <label class="payment-label" for="cheque">درگاه آنلاین زرین پال</label>
+                      <label class="payment-label" for="cheque">{% trans "Zarin Pal online portal" %}</label>
                     </div>
                   </div>
                 </form>

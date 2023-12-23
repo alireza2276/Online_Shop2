@@ -99,7 +99,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'store.context_processors.cart',
                 'store.context_processors.show_information',
-                'store.context_processors.compare',
+                # 'store.context_processors.compare',
             ],
         },
     },

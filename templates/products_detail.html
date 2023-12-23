@@ -73,8 +73,8 @@
                     {% endif %}
 
                     {% else %}
-                    <small>For like this product you must login First!</small>
-                    <a class="btn" href="{% url "account_login" %}">Login</a>
+                    <small>{% trans "For like this product you must login First!" %}</small>
+                    <a class="btn" href="{% url "account_login" %}">{% trans "Login" %}</a>
                   {% endif %}
                 </div>
               </div>
@@ -112,7 +112,10 @@
                               {% trans 'color' %}
                             </th>
                             <td>
-                              <a href="shop-sidebar.html">{{ product.color }}</a>
+                              {% for color in product.color.all  %}
+                              <a href="shop-sidebar.html">{{ color }}</a>
+                              {% endfor %}
+                              
                             </td>
                           </tr>
                           <tr>

@@ -16,27 +16,18 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
-    
 
-class PeriodPrice(models.Model):
-    title = models.CharField(max_length=255)
 
-    def __str__(self):
+class Color(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
         return self.title
 
 
+
 class Product(models.Model):
-
-    COLOR_CHOICES = [
-        (_('BLACK'), 'black'),
-        (_('BLUE'), 'blue'),
-        (_('WHITE'), 'white'),
-        (_('RED'), 'red'),
-        (_('PINK'), 'pink'),
-    ]
-
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
-    period_price = models.ForeignKey(PeriodPrice, on_delete=models.CASCADE, related_name='period_price', null=True, blank=True)
     title = models.CharField(max_length=255)
     description = RichTextField()
     short_description = models.TextField(blank=True)
@@ -45,7 +36,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='static/product_cover', blank=True)
     status = models.BooleanField(default=True)
     weight = models.IntegerField(validators=[MinValueValidator(1)])
-    color = models.CharField(max_length=255, choices=COLOR_CHOICES, default='black')
+    color = models.ManyToManyField(Color, blank=True, related_name='color')
     ram = models.CharField(max_length=100, blank=True)
     simcard = models.CharField(max_length=100, blank=True)
     operating_system = models.CharField(max_length=100, blank=True)
