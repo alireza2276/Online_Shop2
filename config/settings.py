@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+
     'django.contrib.humanize',
 
      # third_party_apps
@@ -59,6 +61,7 @@ INSTALLED_APPS = [
     'payment',
     'persian_translate',
     
+    'serializers',
 ]
 
 SITE_ID = 1

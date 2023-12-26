@@ -20,7 +20,7 @@ from django.utils.translation import gettext_lazy as _
 
 def home(request):
 
-    products = Product.objects.all()[:4]
+    products = Product.objects.order_by('-datetime_created')[:4]
     categories_obj = Category.objects.all()
 
     
@@ -288,10 +288,8 @@ class ContactView(CreateView):
         context = super().get_context_data(**kwargs)
 
         context['contact_form'] = ContactForm()
-        
         return context
-    
-
+       
 #seacrh
 def search(request):
     q = request.GET.get('q')
