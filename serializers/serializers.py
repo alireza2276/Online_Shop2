@@ -13,13 +13,12 @@ class CategorySerializer(serializers.ModelSerializer):
     num_of_products = serializers.SerializerMethodField()
 
     def get_num_of_products(self, category):
-        return category.products_count
+        return category.products.count()
 
 
 class ProductSerializers(serializers.ModelSerializer):
     price_after_tax = serializers.SerializerMethodField()
     price_dollar = serializers.SerializerMethodField()
-    category = CategorySerializer()
 
 
     class Meta:

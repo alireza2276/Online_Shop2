@@ -5,21 +5,17 @@ from store.models import Product, Category
 from .serializers import ProductSerializers, CategorySerializer
 from rest_framework import status
 from django.db.models import Count
+from rest_framework.generics import ListCreateAPIView
 
 
-@api_view(['GET', 'POST'])
-def products(request):
-    if request.method == 'GET':
-        queryset_products = Product.objects.select_related('category').all()
-        serializer = ProductSerializers(queryset_products, many=True, context={'request': request})
-        return Response(serializer.data)
-    
-    elif request.method == 'POST':
-        serializer = ProductSerializers(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer._validated_data
-        serializer.save()
-        return Response('everything is ok')
+
+class ProductList(ListCreateAPIView):
+     serializer_class = ProductSerializers
+     queryset = Product.objects.select_related('category').all()
+
+     def get_serializer_context(self):
+          return {'request': self.request}
+
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def product_detail(request, pk):
@@ -40,21 +36,10 @@ def product_detail(request, pk):
              return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-
-
-@api_view(['GET', 'POST'])
-def categpry_list(request):
-     if request.method == 'GET':
-        queryset_category = Category.objects.annotate(products_count=Count('products')).prefetch_related('products').all()
-        serializer = CategorySerializer(queryset_category, many=True, context={'request': request})
-        return Response(serializer.data)
-     elif request.method == 'POST':
-          serializer = CategorySerializer(data=request.data)
-          serializer.is_valid(raise_exception=True)
-          serializer.save()
-          return Response(serializer.data, status=status.HTTP_201_CREATED)
+class CategoryList(ListCreateAPIView):
+     serializer_class = CategorySerializer
+     queryset = Category.objects.prefetch_related('products').all()
      
-
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def category_detail(request, pk):
