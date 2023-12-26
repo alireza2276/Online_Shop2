@@ -57,6 +57,7 @@ class Product(models.Model):
         return reverse('products_detail', args=[self.pk])
     
     
+    
 
 class Customer(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
