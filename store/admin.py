@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http.request import HttpRequest
 from jalali_date.admin import ModelAdminJalaliMixin
-from .models import Product, Category, Customer, Comment, Order, OrderItem, Contact, Information, Color
+from .models import Product, Category, Customer, Comment, Order, OrderItem, Contact, Information, Color, Cart,CartItem
 from django.db.models import Count
 from django.utils.html import format_html
 from django.utils.http import urlencode
@@ -102,3 +102,19 @@ class ContactAdmin(admin.ModelAdmin):
 @admin.register(Information)
 class InformationAdmin(admin.ModelAdmin):
     list_display = ['address', 'phone_number', 'email', 'instagram']
+
+
+class CartItemInline(admin.TabularInline):
+    model = CartItem
+    fields = ['id', 'product', 'quantity']
+    extra = 0
+    min_num = 1
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ['created_at']
+    inlines = [CartItemInline]
+
+@admin.register(CartItem)
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ['cart', 'product', 'quantity']

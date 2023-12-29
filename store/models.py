@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from ckeditor.fields import RichTextField
 from django.core.validators import MinValueValidator
-
+from  uuid import uuid4
 
 
 class Category(models.Model):
@@ -145,3 +145,20 @@ class Information(models.Model):
     phone_number = models.CharField(max_length=15)
     email = models.EmailField()
     instagram = models.CharField(max_length=255)
+
+
+
+# for serializers
+
+class Cart(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='cart_items')
+    quantity = models.PositiveIntegerField()
+
+

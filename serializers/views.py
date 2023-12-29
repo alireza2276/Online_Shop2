@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from store.models import Product, Category, Comment
-from .serializers import ProductSerializers, CategorySerializer, CommentSerializer
+from store.models import Product, Category, Comment, Cart,CartItem
+from .serializers import ProductSerializers, CategorySerializer, CommentSerializer, CartSerializer, CartItemSerializer,AddCartItemSerializer, UpdateCartItemSerializer
 from rest_framework import status
 from django.db.models import Count
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
@@ -11,6 +11,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.pagination import PageNumberPagination
 from .paginations import DefaultPagination
+from rest_framework.viewsets import GenericViewSet
+from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, DestroyModelMixin
 
 class ProductViewSet(ModelViewSet):
      serializer_class = ProductSerializers
@@ -50,3 +52,34 @@ class CommentViewSet(ModelViewSet):
      
      def get_serializer_context(self):
           return {'product_pk': self.kwargs['product_pk']}
+     
+
+class CartItemViewSet(ModelViewSet):
+     http_method_names = ['get', 'post', 'patch', 'delete']
+     serializer_class = CartItemSerializer
+
+     def get_queryset(self):
+          cart_pk = self.kwargs['cart_pk']
+          return CartItem.objects.select_related('product').filter(cart_id=cart_pk).all()
+     
+     def get_serializer_class(self):
+          if self.request.method == 'POST':
+               return AddCartItemSerializer
+          
+          elif self.request.method == 'PATCH':
+               return UpdateCartItemSerializer
+          return CartItemSerializer
+          
+
+     def get_serializer_context(self):
+          return {'cart_pk': self.kwargs['cart_pk']}
+     
+class CartViewSet(CreateModelMixin,
+                   RetrieveModelMixin,
+                   DestroyModelMixin,
+                   GenericViewSet):
+     serializer_class = CartSerializer
+     queryset = Cart.objects.prefetch_related('items__product').all()
+     lookup_value_regex = '[0-9a-fA-F]{8}\-?[0-9a-fA-F]{4}\-?[0-9a-fA-F]{4}\-?[0-9a-fA-F]{4}\-?[0-9a-fA-F]{12}'
+
+     
