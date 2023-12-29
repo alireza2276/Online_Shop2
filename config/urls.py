@@ -27,6 +27,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
     path('', include('store.urls')),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
     path('serializers/', include('serializers.urls')),
     path('accounts/', include('allauth.urls')),
     path('payemnt/', include('payment.urls')),

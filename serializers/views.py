@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from store.models import Product, Category, Comment, Cart,CartItem
-from .serializers import ProductSerializers, CategorySerializer, CommentSerializer, CartSerializer, CartItemSerializer,AddCartItemSerializer, UpdateCartItemSerializer
+from rest_framework.decorators import action
+from store.models import Product, Category, Comment, Cart,CartItem, Customer
+from .serializers import ProductSerializers, CategorySerializer, CommentSerializer, CartSerializer, CartItemSerializer,AddCartItemSerializer, UpdateCartItemSerializer, CustomerSerializer
 from rest_framework import status
 from django.db.models import Count
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
@@ -13,6 +13,9 @@ from rest_framework.pagination import PageNumberPagination
 from .paginations import DefaultPagination
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, DestroyModelMixin
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from .permissions import IsAdminUserOrReadOnly
+
 
 class ProductViewSet(ModelViewSet):
      serializer_class = ProductSerializers
@@ -34,6 +37,7 @@ class ProductViewSet(ModelViewSet):
 class CategoryViewSet(ModelViewSet):
      serializer_class = CategorySerializer
      queryset = Category.objects.prefetch_related('products')
+     permission_classes = [IsAdminUserOrReadOnly]
 
      def delete(self, request, pk,*args, **kwargs ):
           category = get_object_or_404(Category.objects.prefetch_related('products'), pk=pk)
@@ -82,4 +86,23 @@ class CartViewSet(CreateModelMixin,
      queryset = Cart.objects.prefetch_related('items__product').all()
      lookup_value_regex = '[0-9a-fA-F]{8}\-?[0-9a-fA-F]{4}\-?[0-9a-fA-F]{4}\-?[0-9a-fA-F]{4}\-?[0-9a-fA-F]{12}'
 
-     
+
+class CustomerViewSet(ModelViewSet):
+     serializer_class = CustomerSerializer
+     queryset = Customer.objects.all()
+     permission_classes = [IsAdminUser]
+
+     @action(detail=False, methods=['GET', 'PUT'], permission_classes=[IsAuthenticated])
+     def me(self, request):
+          user_id = request.user.id
+          customer = Customer.objects.get(user_id=user_id)
+
+          if request.method == 'GET':
+
+               serializer = CustomerSerializer(customer)
+               return Response(serializer.data)
+          elif request.method == 'PUT':
+               serializer = CustomerSerializer(customer, data=request.data)
+               serializer.is_valid(raise_exception=True)
+               serializer.save()
+               return Response(serializer.data)
