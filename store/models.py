@@ -91,7 +91,7 @@ class Comment(models.Model):
 
 
 class Order(models.Model):
-        user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE )
+        customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders' )
         is_paid = models.BooleanField(default=False)
 
         first_name = models.CharField(max_length=255)
@@ -109,7 +109,7 @@ class Order(models.Model):
         datetime_modified = models.DateTimeField(auto_now=True)
 
         def __str__(self):
-            return f"{self.user} - {self.is_paid}"
+            return f"{self.customer} - {self.is_paid}"
         
         def get_total_price(self):
             return sum(item.quantity * item.price for item in self.items.all())

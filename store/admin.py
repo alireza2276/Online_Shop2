@@ -78,7 +78,7 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['user', 'first_name', 'last_name', 'datetime_created', 'is_paid', 'num_of_items']
+    list_display = ['customer','datetime_created', 'is_paid', 'num_of_items']
     inlines = [OrderItemTabularInline]
 
     def get_queryset(self, request: HttpRequest) -> QuerySet[Any]:

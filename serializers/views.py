@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from store.models import Product, Category, Comment, Cart,CartItem, Customer
-from .serializers import ProductSerializers, CategorySerializer, CommentSerializer, CartSerializer, CartItemSerializer,AddCartItemSerializer, UpdateCartItemSerializer, CustomerSerializer
+from store.models import Product, Category, Comment, Cart,CartItem, Customer, Order, OrderItem
+from .serializers import ProductSerializers, CategorySerializer, CommentSerializer, CartSerializer, CartItemSerializer,AddCartItemSerializer, UpdateCartItemSerializer, CustomerSerializer, OrderSeializer, OrderItemSerializer, OrderForaAdminSerializer, OrderCreateSerializer
 from rest_framework import status
 from django.db.models import Count
+from django.db.models import Prefetch
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
@@ -106,3 +107,34 @@ class CustomerViewSet(ModelViewSet):
                serializer.is_valid(raise_exception=True)
                serializer.save()
                return Response(serializer.data)
+
+
+class OrderViewSet(ModelViewSet):
+     serializer_class = OrderSeializer
+     permission_classes = [IsAuthenticated]
+     
+
+     def get_queryset(self):
+          queryset = Order.objects.prefetch_related(Prefetch(
+               'items',
+               queryset=OrderItem.objects.select_related('product')
+          )).select_related('customer__user').all()
+
+          user = self.request.user
+
+          if user.is_staff:
+               return queryset
+          return queryset.filter(customer__user_id=user.id)
+     
+
+     def get_serializer_class(self):
+
+          if self.request.method == 'POST':
+               return OrderCreateSerializer
+          
+          if self.request.user.is_staff:
+               return OrderForaAdminSerializer
+          return OrderSeializer
+     
+     def get_serializer_context(self):
+          return {'user_id': self.request.user.id}
