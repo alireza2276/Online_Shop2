@@ -21,6 +21,7 @@
                     <table class="table text-center">
                       <thead>
                         <tr>
+                          <th>color</th>
                           <th>&nbsp;</th>
                           <th>
                             {% trans 'product image' %}
@@ -42,6 +43,7 @@
                       <tbody>
                         {% for item in cart %}
                           <tr>
+                            <td>{{item.color.title}}</td>
                             <td class="product-remove text-left">
                               <a href="{% url 'cart_remove' item.product_obj.id %}"><i class="flaticon flaticon-cross"></i></a>
                             </td>

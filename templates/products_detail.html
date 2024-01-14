@@ -47,6 +47,14 @@
                     </div>
                     <hr />
 
+                    <div class="form-check form-check-inline">
+                      {% for color in product.color.all %}
+                        <input name="color" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="{{color}}" />
+                        <label class="form-check-label" for="inlineCheckbox1">{{color.title}}</label>
+                      {% endfor %}
+                    </div>
+                    <hr />
+
                     <button class="btn btn-small btn-bg-red btn-color-white btn-hover-2" type="submit">{% trans 'Add to cart' %}</button>
                   </form>
                   {% comment %} <div class="quantity-wrapper d-flex justify-content-start">
@@ -71,10 +79,9 @@
                         {{ total_likes }} Likes
                       </form>
                     {% endif %}
-
-                    {% else %}
-                    <small>{% trans "For like this product you must login First!" %}</small>
-                    <a class="btn" href="{% url "account_login" %}">{% trans "Login" %}</a>
+                  {% else %}
+                    <small>{% trans 'For like this product you must login First!' %}</small>
+                    <a class="btn" href="{% url 'account_login' %}">{% trans 'Login' %}</a>
                   {% endif %}
                 </div>
               </div>
@@ -112,10 +119,9 @@
                               {% trans 'color' %}
                             </th>
                             <td>
-                              {% for color in product.color.all  %}
-                              <a href="shop-sidebar.html">{{ color }}</a>
+                              {% for color in product.color.all %}
+                                <a href="shop-sidebar.html">{{ color }}</a>
                               {% endfor %}
-                              
                             </td>
                           </tr>
                           <tr>
@@ -168,7 +174,7 @@
                                         <strong class="review__author px-4">{{ comment.author.username }}</strong>
                                       </div>
                                       <div class="product-rating">
-                                        <div class="m-0 star-rating star-five">
+                                        <div class="m-0 star-rating star-four">
                                           <span>Rated <strong class="rating"></strong> out of 5</span>
                                         </div>
                                       </div>

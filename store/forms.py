@@ -2,6 +2,8 @@ from django import forms
 from .models import Comment, Order, Contact
 
 
+
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -13,6 +15,8 @@ class AddToCartProductForm(forms.Form):
     quantity = forms.TypedChoiceField(choices=QUANTITY_CHOICES, coerce=int)
 
     inplace = forms.BooleanField(required=False, widget=forms.HiddenInput)
+
+    
 
 
 class OrderForm(forms.ModelForm):

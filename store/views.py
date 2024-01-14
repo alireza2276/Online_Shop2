@@ -71,7 +71,7 @@ class ProductListView(ListView):
 
 
 class ProductDetailView(DetailView):
-    queryset = Product.objects.prefetch_related('comments__author')
+    queryset = Product.objects.prefetch_related('comments__author').prefetch_related('color')
     template_name = 'products_detail.html'
     context_object_name = 'product'
 
@@ -180,6 +180,7 @@ def cart_detail_view(request):
         item['product_update_quantity_form'] = AddToCartProductForm(initial={
             'quantity': item['quantity'],
             'inplace': True,
+            
         })
 
     return render(request, 'cart_details.html', {'cart': cart})
@@ -188,12 +189,13 @@ def cart_detail_view(request):
 
 def add_to_cart_ciew(request, product_id):
     cart = Cart(request)
-    product = get_object_or_404(Product, id=product_id)
+    product = get_object_or_404(Product.objects.select_related('category').all(), id=product_id)
     form = AddToCartProductForm(request.POST)
 
     if form.is_valid():
         cleaned_data = form.cleaned_data
         quantity = cleaned_data['quantity']
+       
         cart.add(product, quantity, replace_current_quantity=cleaned_data['inplace'])
 
     return redirect('cart_details')
@@ -220,6 +222,8 @@ def clear_cart(request):
         messages.warning(request, _('Your cart is empty'))
 
     return redirect('products_list')
+
+
 
 def order_create(request):
     order_form = OrderForm()

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-17 11:08+0330\n"
+"POT-Creation-Date: 2024-01-14 21:59+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,62 +18,218 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\models.py:30
-msgid "BLACK"
-msgstr "مشکی"
+#: .\models.py:13 .\models.py:25 .\models.py:38
+msgid "title"
+msgstr "عنوان"
 
-#: .\models.py:31
-msgid "BLUE"
-msgstr "آبی"
+#: .\models.py:14 .\models.py:39
+msgid "description"
+msgstr "توصیف محصول"
 
-#: .\models.py:32
-msgid "WHITE"
-msgstr "سفید"
+#: .\models.py:17
+msgid "categories"
+msgstr "دسته بندی ها"
 
-#: .\models.py:33
-msgid "RED"
-msgstr "قرمز"
+#: .\models.py:29
+msgid "colors"
+msgstr "رنگ ها"
 
-#: .\models.py:34
-msgid "PINK"
-msgstr "صورتی"
+#: .\models.py:37
+msgid "category"
+msgstr "دسته بندی"
 
-#: .\models.py:85 .\models.py:134
+#: .\models.py:40
+msgid "short_description"
+msgstr "تعریف کوتاه"
+
+#: .\models.py:41 .\models.py:139
+msgid "price"
+msgstr "قیمت"
+
+#: .\models.py:42
+msgid "discount"
+msgstr "قیمت با تخفیف"
+
+#: .\models.py:43
+msgid "image"
+msgstr "تصویر"
+
+#: .\models.py:44 .\models.py:99
+msgid "status"
+msgstr "وضعیت"
+
+#: .\models.py:45
+msgid "weight"
+msgstr "وزن"
+
+#: .\models.py:46
+msgid "color"
+msgstr "رنگ"
+
+#: .\models.py:47
+msgid "ram"
+msgstr "رم"
+
+#: .\models.py:48
+msgid "simcard"
+msgstr "سیم کارت"
+
+#: .\models.py:49
+msgid "operating_system"
+msgstr "سیستم عامل"
+
+#: .\models.py:50
+msgid "likes"
+msgstr "لایک"
+
+#: .\models.py:53 .\models.py:98 .\models.py:123
+msgid "datetime_created"
+msgstr "زمان ایجاد"
+
+#: .\models.py:73
+msgid "user"
+msgstr "کاربر"
+
+#: .\models.py:74 .\models.py:115 .\models.py:168
+msgid "phone_number"
+msgstr "شماره همراه"
+
+#: .\models.py:75
+msgid "birth_date"
+msgstr "تاریخ تولد"
+
+#: .\models.py:81 .\models.py:109
+msgid "customer"
+msgstr "فروشنده"
+
+#: .\models.py:95 .\models.py:137 .\models.py:191
+msgid "product"
+msgstr "محصول"
+
+#: .\models.py:96
+msgid "author"
+msgstr "نویسنده"
+
+#: .\models.py:97 .\models.py:153
 msgid "body"
 msgstr "متن شما"
 
-#: .\models.py:131
-msgid "full_name"
-msgstr "نام و نام خانوادگی"
+#: .\models.py:105
+msgid "comments"
+msgstr "نظرات"
 
-#: .\models.py:132
-msgid "email"
-msgstr "ایمیل"
+#: .\models.py:110
+msgid "is_paid"
+msgstr "وضعیت پرداخت"
 
-#: .\models.py:133
+#: .\models.py:112
+
+msgid "first_name"
+msgstr "نام"
+
+#: .\models.py:113
+
+msgid "last_name"
+msgstr "  نام خانوادگی"
+
+#: .\models.py:116 .\models.py:152 .\models.py:167
 msgid "address"
 msgstr "آدرس"
 
-#: .\views.py:126
+#: .\models.py:117
+
+msgid "order_notes"
+msgstr "یادداشت سفارش"
+
+#: .\models.py:133
+msgid "orders"
+msgstr "سفارش ها"
+
+#: .\models.py:136
+
+msgid "order"
+msgstr "سفارش "
+
+#: .\models.py:138 .\models.py:192
+msgid "quantity"
+msgstr "تعداد"
+
+#: .\models.py:145
+msgid "orderitems"
+msgstr "آیتم های سفارش"
+
+#: .\models.py:150
+msgid "full_name"
+msgstr "نام و نام خانوادگی"
+
+#: .\models.py:151 .\models.py:169
+msgid "email"
+msgstr "ایمیل"
+
+#: .\models.py:155
+
+msgid "datetime_ctreated"
+msgstr "زمان ایجاد"
+
+#: .\models.py:162
+msgid "contact"
+msgstr "ارتباط با ما"
+
+#: .\models.py:170
+msgid "instagram"
+msgstr "اینستاگرام"
+
+#: .\models.py:173
+msgid "informations"
+msgstr "اطلاعات"
+
+#: .\models.py:181
+msgid "created_at"
+msgstr "زمان ایجاد"
+
+#: .\models.py:185 .\models.py:190
+msgid "cart"
+msgstr "سبد خرید"
+
+#: .\models.py:196
+msgid "cartitems"
+msgstr "آیتم های سبد خرید"
+
+#: .\views.py:107
 msgid "Your comment successfully added"
 msgstr "نظر شما با موفقیت اضافه شد"
 
-#: .\views.py:151
+#: .\views.py:132
 msgid "Product successfully added"
 msgstr "محصول شما با موفیت اضافه شد"
 
-#: .\views.py:161
+#: .\views.py:142
 msgid "Product successfully removed from cart"
 msgstr "محصول شما با موفقیت از سبد خرید حذف شد."
 
-#: .\views.py:236
+#: .\views.py:219
 msgid "Your cart successfully removed from your cart"
 msgstr "سبد خرید شما با موفقیت خالی شد."
 
-#: .\views.py:239
+#: .\views.py:222
 msgid "Your cart is empty"
 msgstr "سبد خرید شما خالی است"
 
-#: .\views.py:249
+#: .\views.py:233
 msgid "You can not proceed, because your cart is empty!"
 msgstr "شما نمیتوانید سفارشی ثبت کنید!چون سبد خرید شما خالی است."
+
+#~ msgid "BLACK"
+#~ msgstr "مشکی"
+
+#~ msgid "BLUE"
+#~ msgstr "آبی"
+
+#~ msgid "WHITE"
+#~ msgstr "سفید"
+
+#~ msgid "RED"
+#~ msgstr "قرمز"
+
+#~ msgid "PINK"
+#~ msgstr "صورتی"
