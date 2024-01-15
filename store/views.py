@@ -14,6 +14,9 @@ from .forms import CommentForm, AddToCartProductForm, ContactForm
 from .models import OrderItem
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
+from coupons.models import Coupon
+from decimal import Decimal
+from coupons.forms import CouponApplyForm
 # from .compare import Compare
 
 
@@ -117,6 +120,7 @@ class Cart:
         if not cart:
             cart = self.session['cart'] = {}
         self.cart = cart
+        self.coupon_id = self.session.get('coupon_id')
 
     
     def add(self, product, quantity=1, replace_current_quantity=False):
@@ -172,6 +176,19 @@ class Cart:
 
         return sum(item['product_obj'].price * item['quantity'] for item in self.cart.values())
     
+    @property
+    def coupon(self):
+        if self.coupon_id:
+            return Coupon.objects.get(id=self.coupon_id)
+        return None
+    
+    def get_discount(self):
+        if self.coupon:
+            return (self.coupon.discount / Decimal('100')) * self.get_total_price()
+        
+    def get_total_price_after_discount(self):
+        return self.get_total_price() - self.get_discount()
+    
 
 def cart_detail_view(request):
     cart = Cart(request)
@@ -183,7 +200,9 @@ def cart_detail_view(request):
             
         })
 
-    return render(request, 'cart_details.html', {'cart': cart})
+    coupon_apply_form = CouponApplyForm()
+
+    return render(request, 'cart_details.html', {'cart': cart, 'coupon_apply_form': coupon_apply_form})
 
 
 

@@ -4,7 +4,7 @@
 {% load persian_template_tags %}
 {% load humanize %}
 {% block title %}
- {% trans " Cart" %}
+  {% trans ' Cart' %}
 {% endblock %}
 
 {% block content %}
@@ -43,7 +43,7 @@
                       <tbody>
                         {% for item in cart %}
                           <tr>
-                            <td>{{item.color.title}}</td>
+                            <td>{{ item.color.title }}</td>
                             <td class="product-remove text-left">
                               <a href="{% url 'cart_remove' item.product_obj.id %}"><i class="flaticon flaticon-cross"></i></a>
                             </td>
@@ -67,7 +67,7 @@
                               </form>
                             </td>
                             <td class="product-total-price">
-                              <span class="product-price-wrapper"><span class="money">{{ item.total_price|intcomma:False|translate_number }} {% trans "$" %}</span></span>
+                              <span class="product-price-wrapper"><span class="money">{{ item.total_price|intcomma:False|translate_number }} {% trans '$' %}</span></span>
                             </td>
                           </tr>
                         {% endfor %}
@@ -75,8 +75,10 @@
                     </table>
                   </div>
                 {% else %}
-                  <p>{% trans "Cart is Empty! Please add to cart some products." %}</p>
-                  <a href="{% url 'products_list' %}">{% trans "Go shopping" %}</a>
+                  <p>
+                    {% trans 'Cart is Empty! Please add to cart some products.' %}
+                  </p>
+                  <a href="{% url 'products_list' %}">{% trans 'Go shopping' %}</a>
                 {% endif %}
               </div>
             </div>
@@ -84,7 +86,7 @@
               {% csrf_token %}
               <div class="row no-gutters border-top pt--20 mt--20">
                 <div class="col-sm-6 text-sm-right">
-                  <button type="submit" class="cart-form__btn">{% trans "Clear cart" %}</button>
+                  <button type="submit" class="cart-form__btn">{% trans 'Clear cart' %}</button>
                 </div>
               </div>
             </form>
@@ -92,7 +94,6 @@
           <div class="col-lg-4">
             <div class="cart-collaterals">
               <div class="cart-totals">
-                
                 <div class="cart-calculator">
                   {% comment %} <div class="cart-calculator__item">
                     <div class="cart-calculator__item--head">
@@ -104,15 +105,36 @@
                   </div> {% endcomment %}
                   <div class="cart-calculator__item order-total">
                     <div class="cart-calculator__item--head">
-                      <span>{% trans "total" %}</span>
+                      <span>{% trans 'total' %}</span>
                     </div>
+
                     <div class="cart-calculator__item--value">
-                      <span class="product-price-wrapper"><span class="money">{{ cart.get_total_price|intcomma:False|translate_number }} {% trans "$" %}</span></span>
+                      <span class="product-price-wrapper"><span class="money">{{ cart.get_total_price|intcomma:False|translate_number }} {% trans '$' %}</span></span>
                     </div>
+
+                    {% if cart.coupon %}
+                      <div class="cart-calculator__item--head">
+                        <span>{% trans 'total discount' %}</span>
+                      </div>
+                      <div class="cart-calculator__item--value">
+                        <span class="product-price-wrapper"><span class="money">{{ cart.get_discount|intcomma:False|translate_number }} {% trans '$' %}</span></span>
+                      </div>
+                      <div class="cart-calculator__item--head">
+                        <span>{% trans 'total after coupon' %}</span>
+                      </div>
+                      <div class="cart-calculator__item--value">
+                        <span class="product-price-wrapper"><span class="money">{{ cart.get_total_price_after_discount|intcomma:False|translate_number }} {% trans '$' %}</span></span>
+                      </div>
+                    {% endif %}
+                    <form action="{% url 'apply' %}" method="post">
+                      {% csrf_token %}
+                      <input type="submit" value="apply" />
+                      {{ coupon_apply_form }}
+                    </form>
                   </div>
                 </div>
               </div>
-              <a href="{% url 'order_create' %}" class="btn btn-fullwidth btn-bg-red btn-color-white btn-hover-2">{% trans "checkout" %}</a>
+              <a href="{% url 'order_create' %}" class="btn btn-fullwidth btn-bg-red btn-color-white btn-hover-2">{% trans 'checkout' %}</a>
             </div>
           </div>
         </div>

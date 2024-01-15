@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-23 20:12+0330\n"
+"POT-Creation-Date: 2024-01-15 21:45+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,7 +55,7 @@ msgid "contact us"
 msgstr "ارتباط با ما"
 
 #: .\account\login.html:22 .\account\login.html:49 .\account\signup.html:47
-#: .\order_create.html:64 .\products_detail.html:79
+#: .\order_create.html:64 .\products_detail.html:86
 msgid "Login"
 msgstr "ورود"
 
@@ -87,48 +87,57 @@ msgstr "آیا ثبت نام کرده اید؟"
 msgid " Cart"
 msgstr "سبد خرید"
 
-#: .\cart_details.html:26
+#: .\cart_details.html:27
 msgid "product image"
 msgstr "عکس محصول"
 
-#: .\cart_details.html:29
+#: .\cart_details.html:30
 msgid "product title"
 msgstr "عنوان محصول"
 
-#: .\cart_details.html:32 .\compare_detail.html:70
+#: .\cart_details.html:33 .\compare_detail.html:70
 msgid "price"
 msgstr "قیمت"
 
-#: .\cart_details.html:35
+#: .\cart_details.html:36
 msgid "quantity"
 msgstr "تعداد"
 
-#: .\cart_details.html:38 .\cart_details.html:106 .\cart_sidebar.html:32
+#: .\cart_details.html:39 .\cart_details.html:109 .\cart_sidebar.html:32
 #: .\order_create.html:95
 msgid "total"
 msgstr "مجموع"
 
-#: .\cart_details.html:68 .\cart_details.html:109 .\cart_sidebar.html:26
-#: .\cart_sidebar.html:33 .\home.html:37 .\home.html:39 .\home.html:43
-#: .\order_create.html:89 .\order_create.html:96 .\products_detail.html:31
-#: .\products_detail.html:33 .\products_detail.html:37 .\products_list.html:135
-#: .\products_list.html:137 .\products_list.html:141
+#: .\cart_details.html:70 .\cart_details.html:113 .\cart_details.html:121
+#: .\cart_details.html:127 .\cart_sidebar.html:26 .\cart_sidebar.html:33
+#: .\home.html:37 .\home.html:39 .\home.html:43 .\order_create.html:89
+#: .\order_create.html:96 .\products_detail.html:31 .\products_detail.html:33
+#: .\products_detail.html:37 .\products_list.html:136 .\products_list.html:138
+#: .\products_list.html:142
 msgid "$"
 msgstr "تومان"
 
-#: .\cart_details.html:76
+#: .\cart_details.html:79
 msgid "Cart is Empty! Please add to cart some products."
 msgstr "سبد خرید شما خالی است ."
 
-#: .\cart_details.html:77
+#: .\cart_details.html:81
 msgid "Go shopping"
 msgstr "رفتن به فروشگاه"
 
-#: .\cart_details.html:85
+#: .\cart_details.html:89
 msgid "Clear cart"
 msgstr "خالی کردن سبد خرید"
 
-#: .\cart_details.html:114
+#: .\cart_details.html:118
+msgid "total discount"
+msgstr "قیمت تخفیف"
+
+#: .\cart_details.html:124
+msgid "total after coupon"
+msgstr "مجموع قیمت با کد تخفیف"
+
+#: .\cart_details.html:138
 msgid "checkout"
 msgstr "ثبت سفارش"
 
@@ -144,27 +153,27 @@ msgstr "ثبت سفارش"
 msgid "title"
 msgstr "عنوان"
 
-#: .\compare_detail.html:30 .\products_detail.html:106
+#: .\compare_detail.html:30 .\products_detail.html:113
 msgid "weight"
 msgstr "وزن"
 
-#: .\compare_detail.html:33 .\products_detail.html:109
+#: .\compare_detail.html:33 .\products_detail.html:116
 msgid "gr"
 msgstr "گرم"
 
-#: .\compare_detail.html:38 .\products_detail.html:114
+#: .\compare_detail.html:38 .\products_detail.html:121
 msgid "color"
 msgstr "رنگ"
 
-#: .\compare_detail.html:46 .\products_detail.html:125
+#: .\compare_detail.html:46 .\products_detail.html:131
 msgid "ram"
 msgstr "رم"
 
-#: .\compare_detail.html:54 .\products_detail.html:133
+#: .\compare_detail.html:54 .\products_detail.html:139
 msgid "simcard"
 msgstr "سیم کارت"
 
-#: .\compare_detail.html:62 .\products_detail.html:141
+#: .\compare_detail.html:62 .\products_detail.html:147
 msgid "operating system"
 msgstr "نسخه سیستم عامل"
 
@@ -172,7 +181,7 @@ msgstr "نسخه سیستم عامل"
 msgid "Say us your messages"
 msgstr "پیام خود را به ما بگویید"
 
-#: .\contact.html:45 .\order_create.html:61 .\products_detail.html:210
+#: .\contact.html:45 .\order_create.html:61 .\products_detail.html:216
 msgid "Send"
 msgstr "ارسال"
 
@@ -196,7 +205,7 @@ msgstr "ایمیل"
 msgid "Home"
 msgstr "خانه"
 
-#: .\home.html:51 .\products_list.html:149
+#: .\home.html:51 .\products_list.html:150
 msgid "Add To Cart"
 msgstr "اضافه کردن به سبد خرید"
 
@@ -256,35 +265,35 @@ msgstr "درگاه آنلاین زرین پال"
 msgid "Products Detail"
 msgstr "جزییات محصول"
 
-#: .\products_detail.html:51
+#: .\products_detail.html:59
 msgid "Add to cart"
 msgstr "اضافه کردن به سبد خرید"
 
-#: .\products_detail.html:78
+#: .\products_detail.html:85
 msgid "For like this product you must login First!"
 msgstr "برای لایک کردن محصول ابتدا وارد شوید"
 
-#: .\products_detail.html:89
+#: .\products_detail.html:96
 msgid "product description"
 msgstr "توضیحات محصول"
 
-#: .\products_detail.html:90
+#: .\products_detail.html:97
 msgid "feature"
 msgstr "ویژگی ها"
 
-#: .\products_detail.html:91
+#: .\products_detail.html:98
 msgid "comment"
 msgstr "نظر "
 
-#: .\products_detail.html:154
+#: .\products_detail.html:160
 msgid "comment for"
 msgstr "نظر برای"
 
-#: .\products_detail.html:190
+#: .\products_detail.html:196
 msgid "write you comment"
 msgstr "نظر خود را وارد کنید"
 
-#: .\products_detail.html:218
+#: .\products_detail.html:224
 msgid "You first Login"
 msgstr "اول وارد شوید!"
 
@@ -293,7 +302,6 @@ msgid "Product_list"
 msgstr "لیست محصولات"
 
 #: .\products_list.html:17
-
 msgid "Filter by Category"
 msgstr "فیلتر بر اساس دسته بندی ها"
 
@@ -317,56 +325,55 @@ msgstr "جی پلاس"
 msgid "shiaomi"
 msgstr "شیائومی"
 
-#: .\products_list.html:43
-
+#: .\products_list.html:44
 msgid "Filter by color"
 msgstr "فیلتر بر اساس رنگ"
 
-#: .\products_list.html:46 .\products_list.html:47
+#: .\products_list.html:47 .\products_list.html:48
 msgid "Black"
 msgstr "مشکی"
 
-#: .\products_list.html:50 .\products_list.html:51
+#: .\products_list.html:51 .\products_list.html:52
 msgid "White"
 msgstr "سفید"
 
-#: .\products_list.html:54 .\products_list.html:55
+#: .\products_list.html:55 .\products_list.html:56
 msgid "Red"
 msgstr "قرمز"
 
-#: .\products_list.html:58 .\products_list.html:59
+#: .\products_list.html:59 .\products_list.html:60
 msgid "Blue"
 msgstr "آبی"
 
-#: .\products_list.html:62 .\products_list.html:63
+#: .\products_list.html:63 .\products_list.html:64
 msgid "Green"
 msgstr "سبز"
 
-#: .\products_list.html:66 .\products_list.html:67
+#: .\products_list.html:67 .\products_list.html:68
 msgid "Pink"
 msgstr "صورتی"
 
-#: .\products_list.html:70 .\products_list.html:71
+#: .\products_list.html:71 .\products_list.html:72
 msgid "Gold"
 msgstr "طلایی"
 
-#: .\products_list.html:74 .\products_list.html:75
+#: .\products_list.html:75 .\products_list.html:76
 msgid "Silver"
 msgstr "نقره ای"
 
-#: .\products_list.html:78 .\products_list.html:79
+#: .\products_list.html:79 .\products_list.html:80
 msgid "pistachio nut"
 msgstr "مغز پسته ای"
 
-#: .\products_list.html:82 .\products_list.html:83
+#: .\products_list.html:83 .\products_list.html:84
 msgid "Purple"
 msgstr "بنفش"
 
-#: .\products_list.html:86 .\products_list.html:87
+#: .\products_list.html:87 .\products_list.html:88
 msgid "Brown"
 msgstr "قهوه ای"
 
-#: .\products_list.html:90
+#: .\products_list.html:91
 msgid "Filter"
 msgstr "فیلتر کن"
 
