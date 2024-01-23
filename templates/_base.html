@@ -81,7 +81,7 @@
               <ul class="header-toolbar">
                 
                 <li class="header-toolbar__item mini-cart-item">
-                  <a href="{% url "cart_details" %}" class="header-toolbar__btn toolbar-btn mini-cart-btn">
+                  <a href="#miniCart" class="header-toolbar__btn toolbar-btn mini-cart-btn">
                     <i class="flaticon flaticon-shopping-cart"></i>
                     <sup class="mini-cart-count">{{ cart|length }}</sup>
                   </a>
@@ -129,6 +129,8 @@
     {% block content %}
 
     {% endblock %}
+
+    {% include "cart_sidebar.html" %}
 
     <!-- Footer Start -->
     <footer class="footer">

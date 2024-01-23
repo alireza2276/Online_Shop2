@@ -46,13 +46,14 @@
                       <input type="number" class="quantity-input" name="quantity" id="qty" value="1" min="1" max="31" />
                     </div>
                     <hr />
-
-                    <div class="form-check form-check-inline">
                       {% for color in product.color.all %}
-                        <input name="color" class="form-check-input" type="checkbox" id="inlineCheckbox1" value="{{color}}" />
-                        <label class="form-check-label" for="inlineCheckbox1">{{color.title}}</label>
-                      {% endfor %}
+                    <div class="form-check form-check-inline">
+                      
+                        <input name="color" class="form-check-input" type="radio" id="{{color.title}}" value="{{color.title}}" />
+                        <label class="form-check-label" for="{{color.title}}">{{color.title}}</label>
+                      
                     </div>
+                    {% endfor %}
                     <hr />
 
                     <button class="btn btn-small btn-bg-red btn-color-white btn-hover-2" type="submit">{% trans 'Add to cart' %}</button>

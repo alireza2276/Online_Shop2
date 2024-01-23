@@ -1,6 +1,7 @@
 from django import forms
 from .models import Comment, Order, Contact
 
+from django.utils.translation import gettext_lazy as _
 
 
 
@@ -10,12 +11,31 @@ class CommentForm(forms.ModelForm):
         fields = ['body']
 
 class AddToCartProductForm(forms.Form):
+
+
+    COLOR_CHOICES = (
+        (_('Blue'), 'BLUE'),
+        (_('pistachio nut'), 'Pistachio nut'),
+        (_('Green'), 'Green'),
+        (_('Black'), 'Black'),
+        (_('Purple'), 'Purple'),
+        (_('Pink'), 'Pink'),
+        (_('White'), 'White'),
+        (_('Red'), 'Red'),
+        (_('Brown'), 'Brown'),
+        (_('Gold'), 'Gold'),
+        (_('Silver'), 'Silver'),
+
+    )
+    
     QUANTITY_CHOICES = [(i, str(i)) for i in range(1,31)]
 
     quantity = forms.TypedChoiceField(choices=QUANTITY_CHOICES, coerce=int)
 
     inplace = forms.BooleanField(required=False, widget=forms.HiddenInput)
 
+    color = forms.TypedChoiceField(choices=COLOR_CHOICES, coerce=str)
+    
     
 
 

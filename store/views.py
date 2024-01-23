@@ -123,11 +123,11 @@ class Cart:
         self.coupon_id = self.session.get('coupon_id')
 
     
-    def add(self, product, quantity=1, replace_current_quantity=False):
+    def add(self, product, quantity=1, color='color', replace_current_quantity=False):
         product_id = str(product.id)
 
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0}
+            self.cart[product_id] = {'quantity': 0, 'color': color}
         if replace_current_quantity:
             self.cart[product_id]['quantity'] = quantity
         else:
@@ -196,7 +196,8 @@ def cart_detail_view(request):
     for item in cart:
         item['product_update_quantity_form'] = AddToCartProductForm(initial={
             'quantity': item['quantity'],
-            'inplace': True,
+            'color': item['color'],
+            'inplace': True
             
         })
 
@@ -205,7 +206,7 @@ def cart_detail_view(request):
     return render(request, 'cart_details.html', {'cart': cart, 'coupon_apply_form': coupon_apply_form})
 
 
-
+@require_POST
 def add_to_cart_ciew(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product.objects.select_related('category').all(), id=product_id)
@@ -214,8 +215,9 @@ def add_to_cart_ciew(request, product_id):
     if form.is_valid():
         cleaned_data = form.cleaned_data
         quantity = cleaned_data['quantity']
-       
-        cart.add(product, quantity, replace_current_quantity=cleaned_data['inplace'])
+        color = cleaned_data['color']
+        
+        cart.add(product, quantity, color, replace_current_quantity=cleaned_data['inplace'])
 
     return redirect('cart_details')
 
