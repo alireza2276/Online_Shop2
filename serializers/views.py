@@ -20,7 +20,7 @@ from .permissions import IsAdminUserOrReadOnly
 
 class ProductViewSet(ModelViewSet):
      serializer_class = ProductSerializers
-     queryset = Product.objects.select_related('category').all()
+     queryset = Product.objects.select_related('category').filter(status=True)
      filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
      filterset_fields = ['category_id', 'ram', 'price']
      ordering_fields = ['title', 'datetime_created']
@@ -49,14 +49,14 @@ class CategoryViewSet(ModelViewSet):
 
 class CommentViewSet(ModelViewSet):
      serializer_class = CommentSerializer
-     queryset = Comment.objects.select_related('comments').all()
+     queryset = Comment.objects.select_related('author', 'product').all()
 
      def get_queryset(self):
           product_pk = self.kwargs['product_pk']
           return Comment.objects.filter(product_id=product_pk).all()
      
      def get_serializer_context(self):
-          return {'product_pk': self.kwargs['product_pk']}
+          return {'product_pk': self.kwargs['product_pk'], 'request': self.request}
      
 
 class CartItemViewSet(ModelViewSet):
@@ -85,7 +85,7 @@ class CartViewSet(CreateModelMixin,
                    GenericViewSet):
      serializer_class = CartSerializer
      queryset = Cart.objects.prefetch_related('items__product').all()
-     lookup_value_regex = '[0-9a-fA-F]{8}\-?[0-9a-fA-F]{4}\-?[0-9a-fA-F]{4}\-?[0-9a-fA-F]{4}\-?[0-9a-fA-F]{12}'
+     lookup_value_regex = r'[0-9a-fA-F]{8}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{4}-?[0-9a-fA-F]{12}'
 
 
 class CustomerViewSet(ModelViewSet):
@@ -96,7 +96,7 @@ class CustomerViewSet(ModelViewSet):
      @action(detail=False, methods=['GET', 'PUT'], permission_classes=[IsAuthenticated])
      def me(self, request):
           user_id = request.user.id
-          customer = Customer.objects.get(user_id=user_id)
+          customer, _ = Customer.objects.get_or_create(user_id=user_id, defaults={'phone_number': ''})
 
           if request.method == 'GET':
 

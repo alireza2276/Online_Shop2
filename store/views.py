@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from .models import Product, Comment, Contact, Category
+from .models import Product, Comment, Contact, Category, Customer
 from .forms import CommentForm, AddToCartProductForm, ContactForm
 from .models import OrderItem
 from django.urls import reverse, reverse_lazy
@@ -23,7 +23,7 @@ from coupons.forms import CouponApplyForm
 
 def home(request):
 
-    products = Product.objects.order_by('-datetime_created')[:4]
+    products = Product.objects.filter(status=True).order_by('-datetime_created')[:4]
     categories_obj = Category.objects.all()
 
     
@@ -50,26 +50,16 @@ class ProductListView(ListView):
     template_name = 'products_list.html'
     context_object_name = 'products'
 
-
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        
-
-        request = self.request
-
-        colors = request.GET.getlist('color')
-        categories = request.GET.getlist('category')
-        products = Product.objects.all()
+    def get_queryset(self):
+        products = Product.objects.filter(status=True).prefetch_related('color').select_related('category')
+        colors = self.request.GET.getlist('color')
+        categories = self.request.GET.getlist('category')
 
         if colors:
             products = products.filter(color__title__in=colors).distinct()
-
         if categories:
             products = products.filter(category__title__in=categories).distinct()
-
-        context =  super().get_context_data(**kwargs)
-        context['products'] = products
-        return context
+        return products
 
 
 
@@ -86,7 +76,7 @@ class ProductDetailView(DetailView):
         context['total_likes'] = total_likes
 
         liked = False
-        if stuff.likes.filter(id=self.request.user.id).exists():
+        if self.request.user.is_authenticated and stuff.likes.filter(id=self.request.user.id).exists():
             liked = True
         context['liked'] = liked
 
@@ -173,8 +163,9 @@ class Cart:
 
     def get_total_price(self):
         product_ids = self.cart.keys()
-
-        return sum(item['product_obj'].price * item['quantity'] for item in self.cart.values())
+        products = Product.objects.filter(id__in=product_ids)
+        prices = {str(product.id): product.price for product in products}
+        return sum(prices.get(product_id, 0) * item['quantity'] for product_id, item in self.cart.items())
     
     @property
     def coupon(self):
@@ -184,7 +175,8 @@ class Cart:
     
     def get_discount(self):
         if self.coupon:
-            return (self.coupon.discount / Decimal('100')) * self.get_total_price()
+            return (Decimal(self.coupon.discount) / Decimal('100')) * self.get_total_price()
+        return Decimal('0')
         
     def get_total_price_after_discount(self):
         return self.get_total_price() - self.get_discount()
@@ -246,6 +238,7 @@ def clear_cart(request):
 
 
 
+@login_required
 def order_create(request):
     order_form = OrderForm()
     cart = Cart(request)
@@ -259,7 +252,11 @@ def order_create(request):
 
         if order_form.is_valid():
             order_obj = order_form.save(commit=False)
-            order_obj.user = request.user
+            customer, _ = Customer.objects.get_or_create(user=request.user, defaults={'phone_number': order_form.cleaned_data['phone_Number']})
+            if customer.phone_number != order_form.cleaned_data['phone_Number']:
+                customer.phone_number = order_form.cleaned_data['phone_Number']
+                customer.save(update_fields=['phone_number'])
+            order_obj.customer = customer
             order_obj.save()
 
 
@@ -317,8 +314,12 @@ class ContactView(CreateView):
        
 #seacrh
 def search(request):
-    q = request.GET.get('q')
-    products = Product.objects.filter(title__icontains=q)
+    q = (request.GET.get('q') or '').strip()
+    products = Product.objects.filter(status=True)
+    if q:
+        products = products.filter(title__icontains=q)
+    else:
+        products = products.none()
     return render(request, 'products_list.html', {'products': products})
 
 

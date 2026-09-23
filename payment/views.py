@@ -14,7 +14,7 @@ def payment_process(request):
 
     order = get_object_or_404(Order, id=order_id)
 
-    toman_total_price = order.get_total_price
+    toman_total_price = order.get_total_price()
     rial_total_price = toman_total_price*10
 
     zarinpal_request_url = 'https://api.zarinpal.com/pg/v4/payment/request.json'
@@ -27,7 +27,7 @@ def payment_process(request):
     request_data ={
         'merchant_id': settings.ZARINPAL_MERCHANT_ID,
         'amount': rial_total_price,
-        'description': f'#{order.id}: {order.user.first_name} {order.user.last_name}',
+        'description': f'#{order.id}: {order.customer.user.first_name} {order.customer.user.last_name}',
         'callback_url': request.build_absolute_url(reverse('payment_callback')),
 
     }
@@ -50,7 +50,7 @@ def payment_callback(request):
     payment_status = request.GET.get('Status')
 
     order = get_object_or_404(Order, zarinpal_authority=payment_authority)
-    toman_total_price = order.get_total_price
+    toman_total_price = order.get_total_price()
     rial_total_price = toman_total_price*10
 
     if payment_status == 'OK':
@@ -62,7 +62,7 @@ def payment_callback(request):
         request_data ={
             'merchant_id': settings.ZARINPAL_MERCHANT_ID,
             'amount': rial_total_price,
-            'authority ': payment_authority,
+            'authority': payment_authority,
 
         }
     
@@ -78,8 +78,8 @@ def payment_callback(request):
 
             if payment_code == 100:
                 order.is_paid = True
-                order.ref_id = data['ref_id']
-                order.zarinpal_data = data
+                order.zarinpal_ref_id = data['ref_id']
+                order.zarinpal_data = json.dumps(data, ensure_ascii=False)
                 order.save()
 
                 return HttpResponse('پرداخت شما با موفقیت انجام شد')
@@ -116,7 +116,7 @@ def sandbox_payment_process(request):
     request_data ={
         'MerchantID': 'abcABCabcABCabcABCabcABCabcABCabcABC',
         'Amount': rial_total_price,
-        'Description': f'#{order.id}: {order.user.first_name} {order.user.last_name}',
+        'Description': f'#{order.id}: {order.customer.user.first_name} {order.customer.user.last_name}',
         'CallbackURL': request.build_absolute_uri(reverse('payment_callback')),
 
     }
@@ -169,8 +169,8 @@ def sandbox_payment_callback(request):
 
             if payment_code == 100:
                 order.is_paid = True
-                order.ref_id = data['RefID']
-                order.zarinpal_data = data
+                order.zarinpal_ref_id = data['RefID']
+                order.zarinpal_data = json.dumps(data, ensure_ascii=False)
                 order.save()
 
                 return HttpResponse('پرداخت شما با موفقیت انجام شد')

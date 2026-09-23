@@ -25,14 +25,17 @@ admin.site.index_title = 'Managemant Product'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("__debug__/", include("debug_toolbar.urls")),
     path('', include('store.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
     path('serializers/', include('serializers.urls')),
     path('accounts/', include('allauth.urls')),
-    path('payemnt/', include('payment.urls')),
+    path('payment/', include('payment.urls')),
     path('coupon/', include('coupons.urls')),
     path('rosetta/', include('rosetta.urls')),
     
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns += [path('__debug__/', include('debug_toolbar.urls'))]
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
